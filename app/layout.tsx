@@ -1,12 +1,7 @@
-import './globals.css'
-import { Noto_Sans_KR } from 'next/font/google'
+import { notoSansKR, archivo } from './fonts'
 
-const inter = Noto_Sans_KR({ 
-  weight: ['300', '400', '700', '900'], 
-  preload: true, 
-  display: 'swap',
-  subsets: ['latin']
-})
+import './globals.css'
+
 
 export const metadata = {
   title: 'Create Next App',
@@ -19,8 +14,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
+      <body>{children}</body>
     </html>
   )
 }
