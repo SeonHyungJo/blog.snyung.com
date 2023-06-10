@@ -1,16 +1,24 @@
 'use client';
 
 import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote';
+import Image from 'next/image';
 
 type MdxContentProps = {
   source: MDXRemoteSerializeResult;
 };
 
-/** Place your custom MDX components here */
 const MdxComponents = {
-  /** h1 colored in yellow */
   h1: (props: React.HTMLProps<HTMLHeadingElement>) => (
     <h1 style={{ color: '#FFF676' }} {...props} />
+  ),
+  img: (props: any) => (
+    <Image
+      width={640}
+      height={320}
+      placeholder={'blur'}
+      blurDataURL={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8MBMAAj8Ba+8o2i0AAAAASUVORK5CYII='}
+      alt={'Image'}
+      {...props} />
   ),
   /** Card component */
   Card: (props: React.HTMLProps<HTMLDivElement>) => (

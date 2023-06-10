@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "start:export": "npx serve@latest out",
+    "build": "next build && next-export-optimize-images",
+    "start": "serve out",
     "lint": "next lint"
   },
   "dependencies": {
@@ -28,6 +27,7 @@
     "@types/react": "18.2.10",
     "@types/react-dom": "18.2.4",
     "dayjs": "^1.11.8",
+    "next-export-optimize-images": "^2.1.0",
     "reading-time": "^1.5.0",
     "rehype-autolink-headings": "^6.1.1",
     "rehype-code-title": "^1.0.0",
