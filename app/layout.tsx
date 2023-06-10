@@ -1,4 +1,5 @@
 import { notoSansKR, archivo } from './fonts'
+import { Providers } from './providers'
 
 import './globals.css'
 
@@ -15,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   )
 }

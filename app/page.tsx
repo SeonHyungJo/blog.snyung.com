@@ -15,6 +15,7 @@ import readingTime from 'reading-time';
 import dayjs from 'dayjs';
 
 import { MdxContent } from './mdx-content';
+import Giscus from './giscus';
 
 
 type Frontmatter = {
@@ -86,6 +87,7 @@ export default async function Home() {
       <p>Published {frontmatter.date}</p>
       <p>readingMinutes {frontmatter.readingMinutes}</p>
       <MdxContent source={serialized} />
+      <Giscus/>
     </div>
   );
 }
