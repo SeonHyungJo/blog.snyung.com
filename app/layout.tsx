@@ -1,7 +1,12 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { Noto_Sans_KR } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Noto_Sans_KR({ 
+  weight: ['300', '400', '700', '900'], 
+  preload: true, 
+  display: 'swap',
+  subsets: ['latin']
+})
 
 export const metadata = {
   title: 'Create Next App',
@@ -14,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={inter.className}>{children}</body>
     </html>
   )
