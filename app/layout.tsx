@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 
-import { notoSansKR, archivo } from './fonts'
-import { Providers } from './providers'
+import { notoSansKR, archivo } from '@/app/fonts'
+import { Providers } from './@components/providers'
+import Header from './@components/Header'
 
-import './globals.css'
+import '@/app/globals.css'
 
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   viewport: 'width=device-width, initial-scale=1.0',
   publisher: 'Netlify',
   robots: {
-    index: true, 
+    index: true,
     follow: true
   },
   alternates: {
@@ -49,8 +50,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
-      <body>
-        <Providers>{children}</Providers>
+      <body className='max-w-4xl mx-auto flex flex-col'>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   )

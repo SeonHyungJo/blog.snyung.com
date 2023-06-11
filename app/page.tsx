@@ -2,7 +2,6 @@ import { promises as fs } from 'fs';
 import { type MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { serialize } from 'next-mdx-remote/serialize';
 
-// MDX Plugins
 import remarkGfm from 'remark-gfm';
 import rehypePrismPlus from 'rehype-prism-plus';
 import rehypeSlug from 'rehype-slug';
@@ -14,8 +13,8 @@ import rehypeCodeTitle from 'rehype-code-title';
 import readingTime from 'reading-time';
 import dayjs from 'dayjs';
 
-import { MdxContent } from './mdx-content';
-import Giscus from './giscus';
+import { MdxContent } from './@components/mdx-content';
+import Giscus from './@components/giscus';
 
 
 type Frontmatter = {
