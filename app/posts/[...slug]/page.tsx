@@ -6,7 +6,7 @@ import IdCard from '../../@components/IdCard';
 import Tags from '../../@components/Tags';
 import ContentTitle from '../../@components/ContentTitle';
 import { MdxContent } from '../../@components/MdxContent';
-import Giscus from '../../@components/Giscus';
+import Comment from '../../@components/Comment';
 
 export function generateStaticParams() {
   return getAllPostsPaths()
@@ -28,7 +28,7 @@ export default async function PostsDetailPage({ params }: { params: { slug: stri
       <hr className={'border-1 w-full border-slate-300 my-6'} />
 
       <IdCard />
-      <Giscus />
+      <Comment />
     </section >
   );
 }

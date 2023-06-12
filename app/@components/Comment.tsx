@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useRef } from 'react';
 
 
-export default function Giscus() {
+export default function Comment() {
   const ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
 
