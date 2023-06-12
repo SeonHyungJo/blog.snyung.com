@@ -2,11 +2,11 @@
 import { getAllPostsPaths } from '@/app/@api/getAllPosts';
 import { getPost } from '@/app/@api/getPost';
 
+import IdCard from '../../@components/IdCard';
 import Tags from '../../@components/Tags';
 import ContentTitle from '../../@components/ContentTitle';
-import Giscus from '../../@components/Giscus';
-import IdCard from '../../@components/IdCard';
 import { MdxContent } from '../../@components/MdxContent';
+import Giscus from '../../@components/Giscus';
 
 export function generateStaticParams() {
   return getAllPostsPaths()
