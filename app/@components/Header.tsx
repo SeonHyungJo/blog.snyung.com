@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useSelectedLayoutSegments } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -15,7 +15,7 @@ import 'react-spring-bottom-sheet/dist/style.css'
 export default function Header() {
   return (
     <header>
-      <Navigation/>
+      <Navigation />
       <MobileNavigation />
     </header>
   )
@@ -25,8 +25,8 @@ function Navigation() {
   const [firtSegment = ''] = useSelectedLayoutSegments()
 
   return (
-    <section className='flex flex-row justify-between py-10 px-6'>
-      <section className='flex flex-row justify-start items-center gap-3'>
+    <section className='flex flex-row justify-between py-8 sm:py-10'>
+      <section className='flex flex-row items-center justify-start gap-3'>
         <section className={'hover:bg-slate-100 transition-all py-2 px-3 rounded-lg'}>
           <Link prefetch href={'/'}>
             <Image
@@ -62,7 +62,7 @@ function MobileNavigation() {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   return (
-    <section className={'hidden max-sm:flex absolute right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full'}>
+    <section className={'hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full'}>
       <Image
         width={20}
         height={20}
@@ -73,7 +73,7 @@ function MobileNavigation() {
       />
 
       <BottomSheet open={openMenu} onDismiss={() => setOpenMenu(false)}>
-        <section className='flex flex-col justify-start items-center gap-3 p-10'>
+        <section className='flex flex-col items-center justify-start gap-3 p-10'>
           {TOP_MENU.map(({ name, url }) => (
             <Link
               key={url}
@@ -93,7 +93,7 @@ function MobileNavigation() {
 
 function SearchAndThemeChanger() {
   return (
-    <section className='flex flex-row justify-start items-center gap-3'>
+    <section className='flex flex-row items-center justify-start gap-3'>
       <span>
         {'검색창'}
       </span>

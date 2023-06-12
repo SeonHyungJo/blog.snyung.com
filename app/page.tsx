@@ -81,7 +81,7 @@ export default async function Home() {
   const { serialized, frontmatter } = await getPost('posts/index.mdx');
 
   return (
-    <div style={{ maxWidth: 600, margin: 'auto' }}>
+    <div className={'mx-auto'}>
       <h1>{frontmatter.title}</h1>
       <p>Published {frontmatter.date}</p>
       <p>readingMinutes {frontmatter.readingMinutes}</p>

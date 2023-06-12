@@ -51,11 +51,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
-      <body className='max-w-4xl mx-auto flex flex-col'>
+      <body className='flex flex-col max-w-4xl px-5 mx-auto'>
         <Providers>
           <Header />
           {children}
-          <Footer/>
+          <Footer />
         </Providers>
       </body>
     </html>

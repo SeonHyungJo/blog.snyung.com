@@ -8,9 +8,6 @@ type MdxContentProps = {
 };
 
 const MdxComponents = {
-  h1: (props: React.HTMLProps<HTMLHeadingElement>) => (
-    <h1 style={{ color: '#FFF676' }} {...props} />
-  ),
   img: (props: any) => (
     <Image
       width={640}
@@ -19,18 +16,7 @@ const MdxComponents = {
       blurDataURL={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8MBMAAj8Ba+8o2i0AAAAASUVORK5CYII='}
       alt={'Image'}
       {...props} />
-  ),
-  /** Card component */
-  Card: (props: React.HTMLProps<HTMLDivElement>) => (
-    <div
-      style={{
-        background: '#333',
-        borderRadius: '0.25rem',
-        padding: '0.5rem 1rem',
-      }}
-      {...props}
-    />
-  ),
+  )
 };
 
 export function MdxContent({ source }: MdxContentProps) {

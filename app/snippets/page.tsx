@@ -1,7 +1,10 @@
+import TopSection from "../@components/TopSection"
+
 export default async function SnippetsMainPage() {
   return (
-    <section style={{}}>
-      {'Snippets'}
-    </section>
+    <TopSection
+      title={'Snippets'}
+      content={'⚡️ 유용한 정보를 모아놓은 공간입니다.'}
+    />
   );
 }
