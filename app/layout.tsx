@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { notoSansKR, archivo } from '@/app/fonts'
 import { Providers } from './@components/providers'
 import Header from './@components/Header'
+import Footer from './@components/Footer'
 
 import '@/app/globals.css'
 
@@ -54,6 +55,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <Footer/>
         </Providers>
       </body>
     </html>
