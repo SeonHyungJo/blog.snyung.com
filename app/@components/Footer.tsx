@@ -1,9 +1,8 @@
 'use client'
 
 import Link from 'next/link';
-import Image from 'next/image';
 
-import { SOCIAL_LINK } from "@/blog.config";
+import SocialLinks from './SocialLinks';
 
 
 export default function Footer() {
@@ -13,17 +12,7 @@ export default function Footer() {
 
       <section className={'w-full flex flex-col justify-center items-end gap-2'}>
         <section className={'w-full flex flex-row justify-end items-center gap-2'}>
-          {SOCIAL_LINK.map((link) => (
-            <Link key={link.type} prefetch href={link.url} rel="noopener noreferrer" target='_blank'>
-              <Image
-                width={20}
-                height={20}
-                src={link.iconPath}
-                alt={`social-${link.type}`}
-                style={{ cursor: 'pointer', width: 20, height: 20, }}
-              />
-            </Link>
-          ))}
+          <SocialLinks />
         </section>
 
         <p className={'text-sm gap-1 text-slate-600 font-semibold text-right'}>

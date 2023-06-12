@@ -1,8 +1,10 @@
 .prose .anchor {
-  @apply invisible absolute no-underline;
+  @apply opacity-0 absolute no-underline transition-all;
 
-  margin-left: -1em;
-  padding-right: 0.5em;
+  padding-right: 10rem;
+  margin-top: -0.1rem;
+  margin-left: -0.8em;
+
   cursor: pointer;
 }
 
@@ -10,10 +12,10 @@
   @apply text-gray-300 dark:text-gray-700;
 
   content: '#';
-
+  font-size: 0.8em;
 }
 
 .anchor:hover,
 .prose *:hover > .anchor {
-  @apply visible;
+  @apply opacity-100;
 }

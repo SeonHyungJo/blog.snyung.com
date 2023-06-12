@@ -25,7 +25,7 @@ function Navigation() {
   const [firtSegment = ''] = useSelectedLayoutSegments()
 
   return (
-    <section className='flex flex-row justify-between py-8 sm:py-10'>
+    <section className='flex flex-row justify-between py-6 sm:py-10'>
       <section className='flex flex-row items-center justify-start gap-3'>
         <section className={'hover:bg-slate-100 transition-all py-2 px-3 rounded-lg'}>
           <Link prefetch href={'/'}>
