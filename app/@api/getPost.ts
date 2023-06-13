@@ -41,14 +41,8 @@ export async function getPost(filePath: string): Promise<Post<Frontmatter>> {
           ]
         ],
         rehypePlugins: [
+          rehypeCodeTitles,
           rehypePrismPlus,
-          [
-            rehypeCodeTitles,
-            {
-              titleSeperator: ":"
-            }
-          ]
-          ,
           rehypeSlug,
           [
             rehypeAutolinkHeadings,
@@ -75,6 +69,7 @@ export async function getPost(filePath: string): Promise<Post<Frontmatter>> {
       serialized,
     };
   } catch (error) {
+    console.error(error)
     redirect('/not-found')
   }
 }

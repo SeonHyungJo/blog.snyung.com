@@ -9,10 +9,8 @@ const MdxComponents = {
   img: (props: any) => (
     <Image
       className={'w-full max-w-2xl'}
-      width={672}
-      height={336}
-      // placeholder={'blur'}
-      // blurDataURL={'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mO8MBMAAj8Ba+8o2i0AAAAASUVORK5CYII='}
+      width={680}
+      height={320}
       alt={'Image'}
       {...props} />
   )

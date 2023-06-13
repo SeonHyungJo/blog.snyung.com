@@ -21,6 +21,6 @@
 
   p,
   span {
-    @apply text-base whitespace-pre-line leading-7;
+    @apply text-base leading-7;
   }
 }
