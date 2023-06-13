@@ -27,7 +27,13 @@ export default async function PostsMainPage() {
         <h6>{`(${posts.length})`}</h6>
       </section>
 
-      <section className='flex flex-col items-start justify-start w-full gap-2'>
+      <section 
+        className='flex flex-col items-start justify-start gap-2' 
+        style={{
+          transform: 'translateX(-6px)',
+          width: 'calc(100% + 12px)'
+        }}
+      >
         {
           posts.map(post => (
             <PostListItem key={post.frontmatter.path} {...post} />
