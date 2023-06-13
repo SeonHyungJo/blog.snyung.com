@@ -1,24 +1,182 @@
 ---
-path: '/aboutme'
-author: 'snyung'
-date: '2021-08-31'
-title: 'About Me(Resume)'
-tags: ['AboutMe', 'Resume']
-category: 'aboutme'
+path: '/snyung'
+date: '2023-06-13'
+title: '조선형(snyung)'
+tags: ['resume']
 ---
 
-# SeonHyungJo(조선형)
+| | |
+|-:|----|
+| **# Github** | [https://github.com/SeonHyungJo](https://github.com/SeonHyungJo) |
+| **# Blog** | [https://snyung.com](https://snyung.com) |
+| **# JavaScript Book** | [https://seonhyungjo.github.io/Javascript-Book/](https://seonhyungjo.github.io/Javascript-Book/) |
+| **# Contact** | [seonhyung.jo@gmail.com](mailto:seonhyung.jo@gmail.com) |
 
-**이력서** : [경력서(상시 업데이트됩니다.)](https://www.notion.so/snyung/46d9612b457b4c23bc073105e69d15e3)
+## TOC
 
-**Mail** : [seonhyung.jo@gmail.com](mailto:seonhyung.jo@gmail.com)
+--- 
 
-**Github** : [https://github.com/seonhyungjo](https://github.com/seonhyungjo)
+# Introduce.
 
-**Blog** : [https://snyung.com](https://snyung.com)
+- 웹, 앱개발, 사내 업무 자동화등 **고객과 내부구성원 모두**를 위한 개발을 해왔습니다.
+- 개발에도 관심이 있지만 **비즈니스 성장에도 관심**이 있습니다.
+- 개인이 아닌 구성원들과의 **커뮤니케이션과 협업을 중요시**합니다.
+- 2년간 초기 MVP 개발부터 배포, 운영하여 100만명이 넘는 사용자를 모으며 수익모델을 만들고 3번의 투자와 개발자 리드한 경험이 있습니다.
 
-**JavaScript Book** : [https://seonhyungjo.github.io/Javascript-Book/](https://seonhyungjo.github.io/Javascript-Book/)
+## Skill.
 
-이전에 개발하던 디자인 에디터입니다. 경헙해보세요.
+- React(Next.js),React(Next.js), Vue.js, Nx, TypeScript, Preact, emotion, stitches
+- react-query, SWR, Jotai, Recoil
+- React Native
+- Google Analytics, GTM, Cohere
+- Github Action, AWS (Beanstalk, S3, EB, Lambda 등)
 
-<iframe src="https://design-editor.netlify.com/" width="100%", height="500">
+--- 
+
+# Experience.
+
+## Callbuslab(콜버스랩)
+
+국내 최대 건물주 플랫폼 '자리톡'과 
+국내 1위 버스대절 서비스 '콜버스'를 운영하고 있는 스타트업
+
+| | |
+| - | ---- |
+| period | 20.12 ~ 23.03 |
+| position | Frontend Engineer |
+| projects | 자리톡 임대장부, 윌세 카드 결제 |
+| tech | Typescript, Next.js, react-query, Jotai, Stitches |
+
+### MVP 개발, 검증, 배포(20.12 ~ 21.02)
+
+- 빠른 개발과 검증을 위해 Preact + Context API를 사용하여 임대인 임대장부 MVP 개발.
+- 데이터 검증을 위해서 GA, 개발한 Log 시스템 도입.
+- 검증 완료 후 정식 배포 진행.
+
+### 프론트엔드 제품의 개발, 배포 환경 구성(22.12 ~ 23.06)
+
+- 일관성 있는 디자인을 가져가기 위해 디자이너와 상의하여 **디자인 시스템 도입**.
+- 임대인, 세입자, 중개인 등 다수의 서비스(앱) 관리를 용이하게 하기 위해 **Nx Framework 도입**.
+- 모노레포로 구성된 프로젝트 중 변경점이 있는 프로젝트만 자동 빌드, 배포할 수 있도록 구성.
+- GitHub Action을 기반으로 CI/CD 구성
+- 내부 테스트를 위해 Github Action에 버튼을 추가하여 특정 브랜치 빌드, 배포 구성.
+
+### 윌세 카드 결제(22.12 ~ 23.01)
+
+- 임차인이 당장 월세를 결제할 수 없는 경우 카드로 결제할 수 있도록 도와주는 서비스.
+- 당시 토스페이먼츠의 베타 서비스인 위젯을 사용하여 도입.
+- 결제서비스의 관리를 위한 어드민 페이지 개발(승인, 반려, 송금 가능).
+- 기획 단계에서부터 개발, AB 테스트를 통한 전환율 개선까지 참여.
+
+### 내부직원들을 위한 작업 진행
+
+- 웹 유입 경로 파악 및 CX를 위한 GA, Cohere 도입
+- A/B 테스트를 위한 내부모듈 개발
+- 수시로 변경되는 Meta 데이터 관리를 위해 Notion으로 정리하여, 빌드 시점에 가져와서 사용
+- 이벤트 트래킹을 위해 정의하는 이름을 짓는 법 논의 및 문서화
+- 앱 트래킹을 위한 GA4 적용
+- CX를 위한 어드민 구성 및 기능 추가(Deeplink 생성, 알림톡 전송, 월세 서비스 관리, 민원 조회 등)
+
+---
+
+
+| | |
+| - | ---- |
+| period | 21.07 ~ 23.03 |
+| position | Frontend Engineer |
+| projects | 자리톡 앱 개발 및 배포, CI/CD 구성 |
+| tech | React Native(Webview), Fastlane |
+
+### 앱 개발 및 배포 환경 구성
+
+- 웹의 빠른 배포와 사용자 접근성을 위해 React-Native + Webview로 개발
+- IOS, Android Notification 개발
+- 모바일에서 특정 URL로 접근시 앱이 있을 경우 자동으로 앱이 실행되고 없는 경우 앱설치시 원하는 페이지로 이동하는 Deeplink 개발
+- 앱 버그 트래킹을 위해 Firebase Crashlytics 적용
+- Firebase Remote Config을 사용하여 사용자의 앱을 강제로 업데이트 기능 개발
+
+### IOS Webview Terminated
+
+- IOS에서 백그라운드로 앱을 두고 다른 앱들을 사용하다 돌아오는 경우 흰화면으로만 나오는 문제발생
+- Webview의 프로세스가 Terminated 되는 것을 확인하고 현재보면 URL로 다시 접근하도록 수정
+
+---
+
+| | |
+| - | ---- |
+| period | 20.04 ~ 23.03 |
+| position | Frontend Engineer |
+| projects | [콜버스](https://callbus.com/) |
+| tech | Vue2, Vuex,  Webpack, ESLint, Node, Puppeteer |
+
+
+### 기존 프로젝트 개선 작업(20.04 ~ 20.08)
+
+- 단일 store를 사용함에도 파일들이 분산되어 **Debugging이 안되는 문제해결**.
+- 에러 리포팅을 위한 **Sentry 도입**.
+- EC2로 SSH로 붙어서 PM2로 배포하던 방식을 **정적자원배포 방식으로 변경**(Github Action + Cloudfront + S3).
+- 디자인 시스템이 존재하지 않아 최소한의 컴폰넌트 확인을 위해 Storybook 도입.
+- 일관성있는 커밋메시지 작성을 위해 **commitizen** 도입.
+- Webpack3에서 Webpack5로 이전 작업진행
+
+### SEO 작업(20.09)
+
+- 구글 봇은 SPA를 읽을 수 있다고 하여 진행했으나, 실제로 노출이 되지 않아 **prerender 방식으로 변경**.
+- 회원만 볼 수 있는 리뷰 전용페이지는 크롤링이 되지 않아, DB에 저장된 원하는 리뷰만 페이지로 만들 수 있도록 구성.
+- SEO 전용 페이지를 만들 수 있는 Lambda를 만들어 자동 빌드 및 배포.
+
+### Vue3 전환을 위한 작업(23.01 ~ 23.03)
+
+- 컴포넌트에서 바로 사용할 수 있는 store를 여러개 생성할 수 있으며, 번들러의 코드 스플릿과 TypeSafe의 장점으로 **Pinia 도입**.
+- Vue3에서 지원하지 않는 이벤트 버스 제거를 위해 [mitt](https://github.com/developit/mitt) 도입.
+- Filter 함수를 Method로 변경.
+
+---
+
+## Inswave Systems(인스웹이브 시스템즈)
+
+HTML5 기반 UI 플랫폼 “웹스퀘어”를 만들며,
+2,000여개 IT 프로젝트 구축과 국내외 700여개 고객사가 사용하는 솔루션 기업
+
+| | |
+| - | ---- |
+| period | 18.04 ~ 20.04 |
+| position | 연구원 |
+| projects | WebSquare Studio SP4, SP5 |
+| tech | Vue2, CEF(Chromium Embeded Framework), SWT, Java, NSIS Script |
+
+- ZIP을 EXE로 설치할 수 있도록 NSIS 개선
+- Drag&Drop으로 화면 개발이 가능한 Editor 개발
+- Chrome Dev Tool과 비슷한 툴 팁 구현 (마우스 Hover시 margin, padding, font, color 데이터 표시)
+
+![snyung - tooltop](/images/aboutme/aboutme-tooltip.png)
+
+---
+
+- **개발한 에디터(체험해보세요)**
+
+<iframe src="https://design-editor.netlify.com/" width="100%" height="300"/>
+
+--- 
+
+# Other Experience.
+
+## Activity.
+
+- 유요한 글을 올리는 [Facebook Page](https://www.facebook.com/ImDevloper) 운영 - 2021.07.01~ing
+    - Slack Command를 입력하게 되면 Git commit + 포스팅 되도록 구성
+- [AWS 주최 ML(강화학습)기반의 레이싱 대회 참여](https://github.com/SeonHyungJo/DeepRacer)(3등) - 2019.10.30
+- [Trouble Shooting & Dev Tip](https://github.com/SeonHyungJo/Dont_Waste_Your_Time)
+- 2023 [서울마라톤](https://seoul-marathon.com/) 10KM 참가 - 56분30초
+- 2023 [용인마라톤](https://www.yonginmarathon.com/marathon/code/8010/) 10KM 참가 - 1시간 1분
+
+## Presentation.
+
+- [Worklet](https://js-dev-note.netlify.com/): Web Workers의 경량 버전으로 개발자가 렌더링 파이프 라인의 하위 수준에 접근할 수 있도록 해주는 Worklet 인터페이스 공유
+
+## Contribute.
+
+- 개인 블로그를 위해서 Gatsby로 [Theme](https://www.gatsbyjs.org/starters/SeonHyungJo/gatsby-snyung-starter/) 만들어 배포
+- Frontend 정보 공유 Organization Group [Im-D](https://github.com/Im-D/Dev-Docs) 운영
+- 정보처리기사 / 2018.05.25
+

@@ -1,6 +1,7 @@
 export type Frontmatter = {
   path: string;
   title: string;
+  description?: string;
   date: string;
   draft?: boolean;
   tags: string[];
