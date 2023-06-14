@@ -1,0 +1,132 @@
+---
+author: 'snyung'
+date: "2023-06-14"
+update: "2023-06-14"
+title: Next.js 13 / 3. Pages and Layouts
+description: "Next.js 애플리케이션에서 특수 파일을 사용하는 방법을 알아보자."
+draft: true
+tags: [Next.js 13, Basic]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+App 라우터에는 page, layout, template을 쉽게 만들 수 있는 새로운 파일 규칙이 도입되었다. 
+
+Next.js 애플리케이션에서 특수 파일을 사용하는 방법을 알아보자.
+
+---
+
+## TOC
+
+## Pages
+
+page는 경로에 고유한 UI. 
+`page.js` 파일에서 컴포넌트를 내보내 페이지를 정의할 수 있다. 중첩 폴더를 사용하여 경로를 정의하고 `page.js` 파일을 사용하여 경로를 접근할 수 있도록 한다.
+
+`app` 디렉터리 내에 `page.js` 파일을 추가하여 첫 번째 페이지를 만듭니다:
+
+```tsx:예시
+// `app/page.tsx` is the UI for the `/` URL
+export default function Page() {
+  return <h1>Hello, Home page!</h1>
+}
+
+// `app/dashboard/page.tsx` is the UI for the `/dashboard` URL
+export default function Page() {
+  return <h1>Hello, Dashboard Page!</h1>
+}
+```
+
+**Good to know**
+
+- 페이지는 항상 경로 sub tree의 leaf다.
+- 페이지에는 `.js`, `.jsx` 또는 `.tsx` 파일 확장자를 사용할 수 있다.
+- 경로 세그먼트에 접근하려면 `page.js` 파일이 필수다.
+- 페이지는 기본적으로 Server Components지만 Client Components로 설정할 수 있습니다.
+- 페이지는 데이터를 가져올 수 있습니다(fetch).
+
+---
+
+## Layouts
+
+layout은 여러 페이지 간 공유되는 UI. 
+탐색에서 layout은 상태를 보존하고 interactive 상태를 유지하며 다시 렌더링(re-render)하지 않는다. layout은 중첩될 수 있다.
+
+layout은 `layout.js` 파일에서 React Components를 `default` export해서 정의할 수 있다. 컴포넌트는 렌더링 도중 자식 레이아웃(있는 경우) 또는 자식 페이지로 채워질 `children` prop를 받아야 한다.
+
+**Good to know**
+
+- 가장 위에 있는 레이아웃을 Root Layout이라고 한다. Route Groups는 필수이며 애플리케이션의 모든 페이지에서 공유된다. Route Groups에는 HTML 및 Body 태그가 포함되어야 한다.
+- 모든 경로 세그먼트는 선택적으로 Layouts을 정의할 수 있다. 이러한 레이아웃은 해당 세그먼트의 모든 페이지에서 공유된다.
+- 경로의 레이아웃은 기본적으로 중첩된다. 각 부모 레이아웃은 React 자식 프로퍼티를 사용하여 그 아래의 자식 레이아웃을 감싸준다.
+- Route Groups을 사용하여 공유 레이아웃 안팎에서 특정 라우트 세그먼트를 선택할 수 있다.
+- layout은 기본적으로 Server Components이지만 Client Components로 설정할 수 있다.
+- layout은 데이터를 불러올 수 있다(fetch).
+- 상위 layout과 하위 layout 간에 데이터를 전달할 수 없다. 그러나 경로에서 동일한 데이터를 두 번 이상 가져올 수 있으며, React는 성능에 영향을 주지 않고 요청을 자동으로 중복 제거한다.
+- layout은 현재 경로 세그먼트에 접근할 수 없다. 라우트 세그먼트에 접근하려면 Client Component에서 `useSelectedLayoutSegment` 또는 `useSelectedLayoutSegments`를 사용할 수 있다.
+- 레이아웃에는 `.js`, `.jsx` 또는 `.tsx` 파일 확장자를 사용할 수 있다.
+- `layout.js` 파일과 `page.js` 파일은 같은 폴더에 정의할 수 있다. 레이아웃이 페이지를 감싸게 된다.
+
+
+### Root Layout (Required)
+
+Root Layout은 `app` 디렉터리의 root 레벨에 정의되며 모든 경로에 적용된다. 이 레이아웃을 사용하면 서버에서 반환되는 초기 HTML을 수정할 수 있다.
+
+> 이전 버전과 다르게 Root Layout이 도입되면서 `_app.js`와 `_document.js` 파일이 필요없어졌으며 마이그레이션이 필요한다.
+
+- `app` 디렉토리에 root layout은 필수다.
+- Next.js가 자동으로 생성하지 않으므로 root layout에 `<html>`와 `<body>` 태그를 정의해야한다.
+- SEO 지원하며 `<head>` HTML 요소(예: `<title>` 요소)를 관리할 수 있다.
+
+### Nesting Layouts
+
+폴더(예: 앱/대시보드/layout.js) 내에 정의된 레이아웃은 특정 경로 세그먼트(예: acme.com/dashboard)에 적용되며 해당 세그먼트가 활성화될 때 렌더링된다. 기본적으로 파일 계층 구조의 레이아웃은 중첩되어 있으므로 하위 레이아웃이 하위 프로퍼티를 통해 하위 레이아웃을 감싸게 된다.
+
+경로 그룹을 사용하여 공유 레이아웃 안팎에서 특정 경로 세그먼트를 선택할 수 있다.
+
+---
+
+## Templates
+
+template은 각 하위 layout 또는 page를 래핑(wrap)한다는 점에서 layout과 비슷하다. 여러 경로에서 지속되는 것과 상태를 유지하는 layout과 달리 template은 탐색 시 **하위 레이아웃에 대해 새로운 인스턴스를 생성**한다. 
+즉, 사용자가 템플릿을 공유하는 경로 사이를 탐색할 때 컴포넌트의 새 인스턴스가 마운트되고, DOM 요소가 다시 생성되며, 상태가 보존되지 않고, effect가 다시 동기화된다.
+
+특정 동작이 필요한 경우 layout보다 template이 더 적합한 옵션이 될 수 있다. 
+
+예를 들어.
+
+- CSS 또는 애니메이션 라이브러리를 사용하여 애니메이션을 시작/종료하는 경우.
+- `useEffect`(예: 페이지 조회 수 로깅) 및 `useState`(예: 페이지별 피드백 양식)에 의존하는 기능.
+- default framework 동작을 변경하는 경우. 예를 들어 레이아웃 내부의 Suspense Boundaries는 layout을 처음 로드할 때만 폴백을 표시하고 페이지를 전환할 때는 표시하지 않습니다. template의 경우 각 탐색에 폴백이 표시됩니다.
+
+> 권장 사항: template을 사용해야 할 특별한 이유가 없는 한 layout을 사용하는 것이 좋다.
+
+템플릿은 `template.js` 파일에서 기본 React Component를 내보내서 정의할 수 있다. 컴포넌트는 중첩된 세그먼트가 될 자식 프로퍼티를 받아들여야 합니다.
+
+---
+
+## Modifying `<head>`
+
+app 디렉토리에서 built-in SEO support을 사용하여 `title`, `meta` 등의 `<head>` HTML 요소를 수정할 수 있다.
+
+Metadata는 [**`metadata` object**](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#the-metadata-object)를 내보내거나 [**`generateMetadata` function**](https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function)를 사용해서  `layout.js` 또는 `page.js` 파일에서 만들수 있다.
+
+```tsx:예시
+import { Metadata } from 'next'
+ 
+export const metadata: Metadata = {
+  title: 'Next.js',
+}
+ 
+export default function Page() {
+  return '...'
+}
+```
+
+---
+### Reference
+
+- [Nextjs - pages and layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts)
+
