@@ -35,7 +35,7 @@ export default async function PostsMainPage() {
         }}
       >
         {
-          posts.map(post => (
+          posts.filter(post => !post.frontmatter.draft).map(post => (
             <PostListItem key={post.frontmatter.path} {...post} />
           ))
         }
