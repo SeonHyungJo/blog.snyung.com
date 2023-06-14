@@ -9,7 +9,7 @@ export default function SocialLinks() {
   return (
     <>
       {SOCIAL_LINK.map((link) => (
-        <Link key={link.type} prefetch href={link.url} rel="noopener noreferrer" target='_blank'>
+        <Link key={link.type} href={link.url} rel="noopener noreferrer" target='_blank'>
           <Image
             width={20}
             height={20}

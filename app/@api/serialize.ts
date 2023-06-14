@@ -55,7 +55,7 @@ export async function serializedMDX(raw: string, newPath: string): Promise<Post<
     frontmatter: {
       ...frontmatter,
       date: dayjs(frontmatter.date).format('YYYY.MM.DD'),
-      readingMinutes: Math.ceil(readingTime(raw, { wordsPerMinute: 150 }).minutes),
+      readingMinutes: Math.ceil(readingTime(raw, { wordsPerMinute: 250 }).minutes),
       path: newPath
     },
     serialized,

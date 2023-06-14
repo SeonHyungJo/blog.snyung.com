@@ -10,6 +10,7 @@ export default function ContentTitle({ title, date, readingMinutes }: ContentTit
   return (
     <section className={'w-auto flex flex-col justify-center items-center gap-2 py-2'}>
       <h1 className='text-center'>{title}</h1>
+      
       <section className={'w-auto flex flex-row justify-center items-center gap-2 mt-2'}>
         <Image
           width={14}
