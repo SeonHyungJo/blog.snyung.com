@@ -1,0 +1,234 @@
+---
+author: 'snyung'
+date: "2023-06-14"
+update: "2023-06-14"
+title: Next.js 13 / 4. Linking and Navigating
+description: "Link Component와 useRouter()를 알아보자"
+draft: true
+tags: [Next.js 13, Basic]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+Next.js Router는 **client-side navigation**과 같이 **server-centric routing**를 사용한다. 즉각적인 loading 상태와 cocurrent render(동시 렌더링)을 지원한다. 
+
+이건 navigation을 client-side state로 유지하여, 비용이 많이 드는 re-render를 피하며, 중단(interrup)이 가능하고, 경쟁 조건(race conditions.)을 일으키지 않는다.
+
+navigate하는 방법에는 2가지가 있다.
+
+- **`<Link>` Component**
+- **`useRouter` Hook**
+
+---
+
+Next.js 13 이전에는 `useRouter()`를 사용해서 연결하는 방식을 많이 사용했다.
+Button이나 글자를 클릭했을 때는 `onClick`을 사용해서 작동시키는게 편하다고 생각했다. 그러나 13 버전을 경험하고는 `<Link> Component`를 적극적으로 사용할 수 밖에 없을 거 같았다.
+
+`<Link> Component`와 `useRouter()`를 각각 살펴보고 Link에 대해서는 꼼꼼히 살펴보자.
+
+---
+
+## TOC
+
+## `<Link>` Component
+
+`<Link>`는 HTML `<a>` Element를 확장하여 경로 간 prefetching과 lient-side navigation을 제공하는 React 컴포넌트다.
+
+```tsx:예시
+import Link from 'next/link'
+ 
+export default function Page() {
+  return <Link href="/dashboard">Dashboard</Link>
+}
+```
+
+`next/link`에서 `Link` 컴포넌트를 가져와서 필수 Props인 href를 추가하면 된다.
+
+### Linking to Dynamic Segments
+
+dynamic segments을 사용한다면, template literals and interpolation을 사용하여 목록을 생성할 수 있다.
+
+```tsx:예시
+import Link from 'next/link'
+ 
+export default function PostList({ posts }) {
+  return (
+    <ul>
+      {posts.map((post) => (
+        <li key={post.id}>
+          <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+### Checking Active Links
+
+`usePathname()`을 사용하여 링크가 활성 상태인지 확인할 수 있다. 
+예를 들어 active link에 class를 추가하여 현재 `pathname`이 링크의 `href`와 일치하는지 확인할 수 있다.
+
+```tsx:예시
+'use client'
+ 
+import { usePathname } from 'next/navigation'
+import { Link } from 'next/link'
+ 
+export function Navigation({ navLinks }) {
+  const pathname = usePathname() // usePathname를 사용하려면 client component여야 한다.
+ 
+  return (
+    <>
+      {navLinks.map((link) => {
+        const isActive = pathname.startsWith(link.href)
+ 
+        return (
+          <Link
+            className={isActive ? 'text-blue' : 'text-black'}
+            href={link.href}
+            key={link.name}
+          >
+            {link.name}
+          </Link>
+        )
+      })}
+    </>
+  )
+}
+```
+
+### Scrolling to an `id`
+
+`<Link>`의 기본 동작은 변경된 경로의 상단으로 scroll한다. 그런데 `href`에 정의된 `id`가 있는 경우, 일반 `<a>` 태그와 유사하게 선언한 id로 scroll된다.
+
+상단으로 scroll되는 것을 방지하려면, `scroll={false}` 를 설정하고 `href`에 `hashed id`를 추가하는게 좋다.
+
+```tsx:예시
+<Link href="/#hashid" scroll={false}>
+  Scroll to specific id.
+</Link>
+```
+
+---
+
+## `useRouter()` Hook
+
+
+`useRouter()`를 사용하면 **Client Component내에서 프로그래밍 방식으로** 경로를 변경할 수 있다.
+
+`useRouter`를 사용하려면 `next/navigation`에서 import하고 Client Component내부에서 호출하면 된다.
+
+```tsx:예시
+'use client'
+ 
+import { useRouter } from 'next/navigation'
+ 
+export default function Page() {
+  const router = useRouter()
+ 
+  return (
+    <button type="button" onClick={() => router.push('/dashboard')}>
+      Dashboard
+    </button>
+  )
+}
+```
+
+---
+
+## How Navigation Works
+
+- `<Link>`를 사용하거나 `router.push()`를 호출하여 경로를 변경한다.
+- Router는 브라우저의 주소 표시줄에서 URL을 업데이트한다.
+- Router는 client-side cache에서 변경되지 않은 세그먼트(예: 공유 레이아웃)를 재사용하여 불필요한 작업을 피한다. 이를 부분 렌더링(partial rendering)이라고도 한다.
+- soft navigation 조건이 충족되면 Router는 서버가 아닌 캐시에서 새 세그먼트를 가져온다. 그렇지 않은 경우 라우터는 hard navigation을 수행하고 서버에서 서버 컴포넌트 payload를 가져온다.
+- 생성된 경우 payload 가져오는 동안 서버에서 Loading UI가 표시된다.
+- Router는 캐시된 payload 또는 새로운 payload를 사용하여 클라이언트에서 새 세그먼트를 렌더링한다.
+
+### Client-side Caching of Rendered Server Components
+
+새로운 라우터에는 Server Components (payload)의 렌더링 결과를 저장하는 in-memory client-side cache가 있다. 캐시는 라우트 세그먼트별로 분할되어 어느 수준에서든 무효화를 허용하고 동시 렌더링(concurrent renders) 전반적으로 일관성을 보장한다.
+
+App을 이동할 때 라우터는 이전에 가져온 경로 페이지와 미리 가져온 경로 페이지를 캐시에 저장한다.
+
+즉, 특정 경우 라우터는 서버에 새로 요청하는 대신 캐시를 재사용할 수 있습니다. 이렇게 하면 데이터를 다시 가져오고 불필요하게 컴포넌트를 다시 렌더링하지 않아도 되므로 성능이 향상됩니다.
+
+### Invalidating the Cache
+
+서버 작업을 사용하여 path(revalidatePath) 또는 cache tag(revalidateTag)를 기준으로 on-demand 데이터를 revalidate할 수 있다.
+
+### Prefetching
+
+Prefetching은 경로를 방문하기 전에 백그라운드에서 경로를 미리 로드하는 방법이다. Prefetch된 경로의 렌더링 결과는 라우터의 client-side cache에 추가된다. 따라서 Prefetch된 경로로 거의 즉시 이동할 수 있다.
+
+기본적으로 경로는 `<Link>` 컴포넌트를 사용할 때 viewport안에 있으면 Prefetching된다. 페이지가 처음 로드될 때 또는 스크롤할 때 발생할 수 있다. `useRouter()` hook.의 Prefetch Method를 사용하여 프로그래밍 방식으로 경로를 Prefetch할 수도 있다.
+
+찾아보니 프로그래밍 방식으로 Prefetch가 가능하지만 useEffect()를 사용해서 설정해야하며, page.js에서 쓰게 될 경우 Client Component로 사용해야한다.
+
+```tsx
+useEffect(() => {
+  router.prefetch('/dashboard')
+}, [router])
+```
+
+**이렇게 사용하는 경우보다는 Server Component의 장점을 가져가면서 기본값으로 Prefetch를 제공하는 `<Link>` 컴포넌트를 최대한 사용하는게 좋겠다고 생각했다.**
+
+- **Code 뜯어보기**
+Next.js 레포지토리에서 `link.ts`를 보면 약 287 line에 Prefetch관련 로직이 있다. 또한 120line에 `function prefetch(){}`이 있다. 실제 로직이 궁금하면 `router.ts`를 뜯어보면 될 거 같다.
+```tsx:line.ts
+function prefetch(
+  router: NextRouter | AppRouterInstance,
+  href: string,
+  as: string,
+  options: PrefetchOptions,
+  appOptions: AppRouterPrefetchOptions,
+  isAppRouter: boolean
+): void { 
+  ...
+}
+```
+```tsx:link.ts
+const prefetchEnabled = prefetchProp !== false
+/**
+ * The possible states for prefetch are:
+ * - null: this is the default "auto" mode, where we will prefetch partially if the link is in the viewport
+ * - true: we will prefetch if the link is visible and prefetch the full page, not just partially
+ * - false: we will not prefetch if in the viewport at all
+ */
+```
+
+### Soft Navigation
+
+navigation시 변경된 세그먼트에 대한 캐시가 재사용되며(있는 경우), 서버에 데이터를 새로 요청하지 않습니다.
+
+- **Conditions for Soft Navigation**
+navigation시 탐색 중인 경로가 **prefetch를 하면서** + (dynamic segments가 포함되어 있지 않거나 or dynamic parameters가 현재 경로와 동일하다면) Soft Navigation한다.
+
+
+예를 들어 dynamic `[team]` 세그먼트가 포함된 다음 경로를 고려한다: `/dashboard/[team]/*`. `[team]` 매개변수가 변경될 때 `/dashboard/[team]/*` 아래에 캐시된 세그먼트가 무효화된다.
+
+- `/dashboard/team-red/*`에서 `/dashboard/team-red/*`으로 이동하는 것은 Soft Navigation한다.
+- `/dashboard/team-red/*`에서 `/dashboard/team-blue/*`으로 이동하는 것은 Hard Navigation한다.
+
+
+### Hard Navigation
+
+navigation시 캐시가 무효화되고 서버가 데이터를 새로 고침하여 변경된 세그먼트를 re-render한다.
+
+### Back/Forward Navigation
+
+뒤로 및 앞으로 navigation(popstate 이벤트)에는 부드러운 탐색 동작이 있다. 즉, client-side cache가 재사용되고 navigation이 거의 즉시 이루어진다는 것이다.
+
+### Focus and Scroll Management
+
+기본적으로 Next.js는 navigation에서 변경된 세그먼트를 보기 위해 focus을 설정하고 scroll한다.
+
+---
+
+### Reference
+
+- [Next.js 13 - Linking and Navigating](https://nextjs.org/docs/app/building-your-application/routing/linking-and-navigating)
+
