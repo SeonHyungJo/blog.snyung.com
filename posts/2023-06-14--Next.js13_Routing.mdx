@@ -1,10 +1,9 @@
 ---
 author: 'snyung'
-date: "2023-06-14"
-update: "2023-06-14"
+date: "2023-06-13"
+update: "2023-06-13"
 title: Next.js 13 / 1. Routing
-draft: true
-description: ""
+description: "13 버전으로 오면서 React Server Components로 만들 수 있는 새로운 App Router가 추가되었다."
 tags: [Next.js 13, Basic]
 category: "posts"
 series: ""
@@ -42,16 +41,15 @@ Next.js 13은 2022.09.26 Release 되었다.
 
 ![terminology-component-tree](/images/posts/nextjs_docs/terminology-component-tree.avif)
 
-- Tree: A convention for visualizing a hierarchical structure. For example, a component tree with parent and children components, a folder structure, etc.
-- Subtree: Part of a tree, starting at a new root (first) and ending at the leaves (last).
-- Root: The first node in a tree or subtree, such as a root layout.
-- Leaf: Nodes in a subtree that have no children, such as the last segment in a URL path.
-Terminology for URL Anatomy
+- Tree: 계층 구조를 시각화하기 위한 규칙으로 예를 들어 parent와 children가 components가 있는 tree, a folder structure등이 있다.
+- Subtree: 새 root(first)에서 시작하여 leaves(last)에서 끝나는 tree의 일부다.
+- Root: subtree의 첫번째 node로 root layout와 같은게 있다.
+- Leaf: URL 경로의 마지막 세그먼트로 같이 하위 트리에 자식이 없는 노드다.
 
 ![terminology-url-anatomy](/images/posts/nextjs_docs/terminology-url-anatomy.avif)
 
-- URL Segment: Part of the URL path delimited by slashes.
-- URL Path: Part of the URL that comes after the domain (composed of segments).
+- URL Segment: 슬래시로 구분된 URL 경로의 일부.
+- URL Path:  도메인 뒤에 오는 URL의 일부(세그먼트로 구성).
 
 ## `app` Router
  
