@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import TopSection from './@components/TopSection'
+import TopSection from './_components/TopSection'
 
 
 export default function NotFoundPage() {

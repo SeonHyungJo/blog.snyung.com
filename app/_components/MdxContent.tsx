@@ -3,7 +3,7 @@
 import { MDXRemote } from 'next-mdx-remote';
 import Image from 'next/image';
 
-import { Frontmatter, Post } from '../@type/post';
+import { Frontmatter, Post } from '../_type/post';
 
 const MdxComponents = {
   img: (props: any) => (

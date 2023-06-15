@@ -3,8 +3,8 @@
 import Image from 'next/image'
 import Link from 'next/link';
 
-import Tags from '../@components/Tags';
-import { Frontmatter, Post } from '../@type/post';
+import Tags from '../_components/Tags';
+import { Frontmatter, Post } from '../_type/post';
 
 
 export default function PostListItem({ frontmatter }: Post<Frontmatter>) {

@@ -1,8 +1,8 @@
 import Link from 'next/link'
 
-import { getAllPosts } from '../@api/getAllPosts';
-import TopSection from "../@components/TopSection";
-import PostListItem from '../@components/PostListItem';
+import { getAllPosts } from '../_api/getAllPosts';
+import TopSection from "../_components/TopSection";
+import PostListItem from '../_components/PostListItem';
 
 
 export default async function PostsMainPage() {

@@ -2,7 +2,7 @@ import { sync } from 'glob';
 import path from 'path';
 import dayjs from 'dayjs';
 
-import { Frontmatter, Post } from '../@type/post';
+import { Frontmatter, Post } from '../_type/post';
 import { getPost } from './getPost';
 
 const BASE_PATH = '/posts';

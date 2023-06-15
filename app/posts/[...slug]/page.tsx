@@ -1,12 +1,12 @@
 
-import { getAllPostsPaths } from '@/app/@api/getAllPosts';
-import { getPost } from '@/app/@api/getPost';
+import { getAllPostsPaths } from '@/app/_api/getAllPosts';
+import { getPost } from '@/app/_api/getPost';
 
-import IdCard from '../../@components/IdCard';
-import Tags from '../../@components/Tags';
-import ContentTitle from '../../@components/ContentTitle';
-import { MdxContent } from '../../@components/MdxContent';
-import Comment from '../../@components/Comment';
+import IdCard from '../../_components/IdCard';
+import Tags from '../../_components/Tags';
+import ContentTitle from '../../_components/ContentTitle';
+import { MdxContent } from '../../_components/MdxContent';
+import Comment from '../../_components/Comment';
 
 export function generateStaticParams() {
   return getAllPostsPaths()

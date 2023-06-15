@@ -11,7 +11,7 @@ import rehypeCodeTitles from 'rehype-code-titles';
 import readingTime from 'reading-time';
 import dayjs from 'dayjs';
 
-import { Frontmatter, Post } from '../@type/post';
+import { Frontmatter, Post } from '../_type/post';
 
 
 export async function serializedMDX(raw: string, newPath: string): Promise<Post<Frontmatter>> {
