@@ -62,7 +62,7 @@ function MobileNavigation() {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   return (
-    <section className={'hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full'}>
+    <section className={'hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full z-10'}>
       <Image
         width={20}
         height={20}

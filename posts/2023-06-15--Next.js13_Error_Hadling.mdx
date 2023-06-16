@@ -26,7 +26,7 @@ series: ""
 
 ## How error.js Works
 
-When the fallback error component is active, layouts above the error boundary maintain their state and remain interactive, and the error component can display functionality to recover from the error.
+fallback error component가 활성화되면, error boundary 위의 레이아웃은 해당 상태를 유지하고 interactive를 유지하며, error component는 오류를 복구(recover)하는 기능을 표시할 수 있다.
 
 - `error.js`는 중첩된 자식 세그먼트 또는 `page.js` 컴포넌트를 감싸는 **React Error Boundary를 자동으로 생성**한다.
 - **`error.js` 파일에서 내보낸 React 컴포넌트가 fallback component으로 사용**된다.
