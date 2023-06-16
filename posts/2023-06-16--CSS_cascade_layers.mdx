@@ -1,0 +1,211 @@
+---
+author: 'snyung'
+date: "2023-06-16"
+update: "2023-06-16"
+title: 혹시 Cascade Layers 아시나요?
+description: "CSS의 새로운(?) 스펙 Cascade Layers에 대해 알아보자."
+tags: [CSS]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+CSS의 새로운(?) 스펙 Cascade Layers에 대해 알아보자.
+
+```css
+@layer state {
+  .alert {
+    background-color: brown;
+  }
+
+  p {
+    border: medium solid limegreen;
+  }
+}
+
+@layer module {
+  .alert {
+    border: medium solid violet;
+    background-color: yellow;
+    color: white;
+  }
+}
+```
+---
+
+## TOC
+
+---
+
+## Cascade Layer란?
+
+Cascade Layers는 CSS Cascade기준에서 Layers라는 새로운 기준을 추가한다.
+
+1. Origin and Importance
+2. Context
+3. Style Attribute
+4. **Layers**
+5. Specificity(명시도)
+6. Order of Apperance(작성 순서)
+
+Layers의 진정한 힘은 명시도(Specificity)와 작성 순서(Order Of Appearance)보다 더 높은 기준에 있다는 점이다.
+
+Layers는 보다 상위 등급의 기준이므로, **Layers 기준 내에서 스타일의 우선권이 정해지면** Cascade는 해당 스타일에 대한 명시도와 작성 순서를 더이상 체크하지 않아도 된다.
+
+또한 개발자는 Cascade Layers를 사용하여 CSS를 여러 Layer로 분할할 수 있습니다. 그리고 적용할 Layer 순서를 정할 수 있다. 그렇기 때문에 이 Layers가 CSS를 로드하는 순서에 대해 전혀 걱정할 필요가 없다.
+
+---
+
+## 사용법
+
+`@layer`를 이용해서 Cascade Layer를 사용하겠다고 알려주고 `layer-name`, `rule`(optional)을 넣어주면 된다.
+
+```text
+@layer layer-name {rules}
+```
+
+`@layer`는 여러 개를 추가할 수 있으며, 순서를 정의하지 않을 경우 마지막에 선언된 Layer가 스타일 우선권을 가진다.
+
+```css
+ /* 첫번째 Layer “first” */
+@layer first { … }
+
+/* 2번째 Layer “second” */
+@layer second { … }
+
+/* 3번째 Layer “third” */
+@layer third { … }
+```
+
+그러나 여러 layer들의 순서를 정하고 싶다면 `@layer layer-name layer-name ...` 원하는 순서로 `layer-name`들을 넣으면 된다. 뒤에 적힐 수록 스타일 우선권을 가진다.
+
+```css
+/* Cascade Layers 선언 예시 코드 */
+/* Layer 순서 정의 - 1. first, 2. second, 3. third */
+@layer first, second, third;
+
+ /* 첫번째 Layer “first” */
+@layer first { … }
+
+/* 2번째 Layer “second” */
+@layer second { … }
+
+/* 3번째 Layer “third” */
+@layer third { … }
+```
+
+속성의 값에 `revert-layer`를 사용할 수 있다. `revert-layer`는 이전 계층에서 정의한 값으로 롤백할 때 사용된다. 즉, 현재 Layer의 값이 지정되지 않은 것처럼 계산한다.
+
+```css
+@layer default {
+  h3 { color: yellow; }
+}
+
+@layer theme {
+  h3 { color: maroon; }
+  /* h3태그에 no-theme클래스가 추가되어있으면, . */
+  .no-theme { color: revert-layer; }
+}
+```
+
+`h3` 태그에 `.no-theme` 클래스가 있으면, `revert-layer`값으로 인해 `color`가 이전 Layer인 default의 스타일인 `yellow`가 적용된다.
+
+---
+
+## 활용
+
+### Layers 중첩
+
+`@layer`명령문을 중첩해서 사용할 수 있다. 중첩된 Layer 내부에서 Layer 우선순위는 기존 Layer와 동일하게 작동하다. 즉, 나중에 정의될 수록 스타일 우선권이 높다.
+
+```css
+@layer first { /* 첫번째 Layer */
+  p { max-width: 70px; }
+}
+
+@layer second { /* 두번째 Layer */
+  @layer second_first { /* 두번째 Layer의 첫번째 Layer */
+    p { max-width: 100px; }
+  }
+
+  @layer second_second { /* 두번째 Layer의 두번째 Layer */
+    p { color: #222; }
+  }
+}
+```
+
+크롬 개발자도구를 사용해서 적용된 layer의 형태를 볼 수 있으며, 위의 예제는 `second_second` layer가 스타일 우선권이 높은 걸 볼 수 있다.
+
+![중첩_layer](/images/posts/중첩_layer.png)
+
+### Unlayered Style
+
+`@layer`를 사용하지 않은 스타일은 Unlayered Styles라고 하며 Layer의 순서 마지막에 위치한다. 그렇기 때문에 Layer가 없는 스타일은 항상 Layer가 있는 스타일보다 우선권을 가진다.
+
+```css
+@layer first { /* 첫번째 Layer */
+  p { max-width: 70px; }
+}
+
+p { color: blue; }
+
+@layer second { /* 두번째 Layer */
+  @layer second_first { /* 두번째 Layer의 첫번째 Layer */
+    p { max-width: 100px; }
+  }
+
+  @layer second_second { /* 두번째 Layer의 두번째 Layer */
+    p { color: #222; }
+  }
+}
+```
+
+위와 같이 만들게 된다면 `color: blue`가 적용된 것을 볼 수 있다.
+
+![Unlayered Style](/images/posts/unlayered-style.png)
+
+---
+
+## [더 알아보기] Specificity(명시도)가 뭐지?
+
+> 한글로 명시도라고 하면 무슨 뜻인가 했는데 Specificity으로 보는게 더 편한거 같다.
+
+CSS 선택자 표현 방법을 숫자 4자리로 표현 후, 숫자가 큰 순으로 우선순위 결정하는 방식.(예. 0000) 
+
+각 자리의 숫자 결정하는 방식은 아래와 같다.
+
+- 천의 자리 : `inline` (= 인라인) 스타일로 추가
+- 백의 자리 : `#` (= 아이디 = id) 선택자 개수
+- 십의 자리 : `.` (= 클래스 = class) 선택자 개수
+- 일의 자리 : `요소` (=태그 = 엘러먼트 element) 선택자 개수
+ 
+자손선택자의 경우, 좀 더 직접적인 조상을 이용해 표현하더라도 명시도가 동일할 경우, 나중 선언된 것이 적용된다.
+
+간단하게 예제를 보면서 익히면 좋을 듯 하다.
+
+<details>  
+<summary>[문제] `ul#primary-nav li.active`의 명시도는 몇인가?</summary>
+
+`#` (아이디) 개수 : 1개 = 1  (백자리)
+`.` (클래스) 개수 : 1개 = 1 (십자리)
+`element` 개수 : 2개 = 2 (일자리)
+
+정답: **0112**
+
+</details>
+
+명시도 문제를 만드신 분이 계신다. 링크에 들어가서 풀어볼 수 있다.
+
+[명시도 문제풀어보기](https://codepen.io/sinbi/pen/GaGVKa)
+
+---
+
+### Reference
+
+- [[CSS] 스타일 우선순위를 정하는, Cascade Layer(@layer)](https://mong-blog.tistory.com/entry/CSS-%EC%8A%A4%ED%83%80%EC%9D%BC-%EC%9A%B0%EC%84%A0%EC%88%9C%EC%9C%84%EB%A5%BC-%EC%A0%95%ED%95%98%EB%8A%94-Cascade-Layerlayer-1)
+- [CSS 명시도 계산기](https://specificity.keegan.st/)
+- [명시도 계산하는 방법](https://homzzang.com/b/css-278)
+- [Can I Use - cascade layer](https://caniuse.com/?search=cascade%20layer)
+- [MDN - @layer](https://developer.mozilla.org/en-US/docs/Web/CSS/@layer)
+
