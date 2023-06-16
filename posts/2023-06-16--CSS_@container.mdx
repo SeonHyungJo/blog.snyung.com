@@ -1,0 +1,87 @@
+---
+author: 'snyung'
+date: "2023-06-16"
+update: "2023-06-16"
+title: 늦었지만 반응형으로 @media 말고 @container 사용하자
+description: "간혹 글이나 유튜브에서 반응형으로 `@media query`를 사용하는 것이 아니라 `@container query`를 사용하면 좋다고 보았다."
+tags: [CSS]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+간혹 글이나 유튜브에서 반응형으로 `@media query`를 사용하는 것이 아니라 `@container query`를 사용하면 좋다고 보았다.
+
+생각난 김에 공부를 하면서 정리해보고 간단하게 예시를 살펴보려고 한다.
+
+---
+
+## TOC
+
+## `@container`는 무엇인가?
+
+container query를 사용하면 element의 컨테이너 크기에 따라 element에 스타일을 다르게 줄 수 있다. 예를 들어 컨테이너 주변 context에 사용할 수 있는 공간이 적은 경우 특정 element를 숨기거나 더 작은 폰트를 사용하는 것이다. container query는 viewport 크기 또는 기기 특성에 따라 element에 스타일을 적용하는 media query의 대안이다. 
+
+![container-query](/images/posts/container-query.svg)
+
+---
+
+## 사용법
+
+container query를 사용하는 방법은 생각보다 간단하다. 알아야할 property는 2가지다.
+
+- `container-name` : container query에서 `@container at-rule`이 사용하는 **query container 이름을 정한다.** 
+- `container-type` : container query에 사용되는 컨테이너 유형을 정의하는 데 사용된다.
+  - `inline-size` : 인라인 레벨 기준으로 컨테이너를 적용. 요소의 width 값에 따라 반응형이 동작한다.
+  - `size` : 블록 레벨 기준으로 컨테이너를 적용. width 뿐만 아니라 height 값에 따라 반응형이 동작한다.
+  - `normal` : 해당 값이 부여된 요소를 container에서 제외시킨다.
+
+원하는 컨테이너에 이름과 타입을 정해주었다면 나머지는 media query처럼 특정 사이즈가 됐을때 어떻게 스타일을 바꿀지 명시해주면 된다.
+
+```html:sample.html
+<style>
+  .post {
+    container-type: inline-size;
+    container-name: sidebar;
+  }
+
+  @container sidebar (min-width: 700px) {
+    .card {
+      font-size: 2em;
+    }
+  }
+</style>
+
+<body>
+  <div class="post">
+    <div class="card">
+      <h2>Card title</h2>
+      <p>Card content</p>
+    </div>
+  </div>
+</body>
+```
+
+### 결과
+
+처음에는 screen 사이즈가 `700px` 아래로 가지 않았는데 왜 변경되지? 라고 생각했으나 `.post`의 사이즈로 확인해보니 잘 작동한 것으로 확인되었다.
+
+![container-query](/images/posts/container-query.gif)
+
+---
+
+## Supported
+
+지원범위를 확인해보니 거의 모든 브라우저에서 가능하다.
+
+- [Can I Use - container query](https://caniuse.com/?search=container%20query)
+
+---
+
+### Reference
+
+- [@media는 이제 그만 ! 최신 @container 사용법](https://inpa.tistory.com/entry/%F0%9F%8C%9F-css-container-%EC%82%AC%EC%9A%A9%EB%B2%95#%EC%BB%A8%ED%85%8C%EC%9D%B4%EB%84%88_%EC%BF%BC%EB%A6%AC_vs_%EB%AF%B8%EB%94%94%EC%96%B4_%EC%BF%BC%EB%A6%AC)
+- [MDN - CSS container queries](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_container_queries)
+- [MDN - container-name](https://developer.mozilla.org/en-US/docs/Web/CSS/container-name)
+- [MDN - container-type](https://developer.mozilla.org/en-US/docs/Web/CSS/container-type)
