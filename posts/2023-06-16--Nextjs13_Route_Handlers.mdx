@@ -1,0 +1,87 @@
+---
+author: 'snyung'
+date: "2023-06-23"
+update: "2023-06-23"
+title: Next.js 13 / 11. Route Handlers
+description: "Route Handlers를 사용하면 웹 요청 및 응답 API를 사용하여 지정된 라우트에 대한 사용자 지정 요청 핸들러를 만들 수 있다."
+tags: [Next.js 13, Basic]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+Route Handlers를 사용하면 웹 요청 및 응답 API를 사용하여 지정된 라우트에 대한 사용자 지정 요청 핸들러를 만들 수 있다.
+
+> Route Handlers는 `app` 디렉토리 내에서만 사용할 수 있다. Route Handlers는 페이지 디렉터리 내의 API 경로와 동일하므로 API 경로와 라우트 핸들러를 함께 사용할 필요가 없다.
+
+---
+
+## TOC
+
+## Convention
+
+Route Handlers는 `app` 디렉터리 내의 `route.js|ts` 파일을 만들면 된다.
+
+```ts:app/api/route.ts
+export async function GET(request: Request) {}
+```
+
+Route Handlers는 page.js 및 layout.js와 유사하게 앱 디렉터리 내에 중첩될 수 있습니다. 하지만 page.js와 동일한 경로 세그먼트 수준에는 route.js 파일이 있을 수 없습니다.
+
+### Supported HTTP Methods
+
+지원되는 HTTP 메서드는 `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS` 다. 지원되지 않는 메서드가 호출되면 Next.js는 `405 Method Not Allowed` 응답을 반환한다.
+
+### Extended `NextRequest` and `NextResponse` APIs
+
+기본 Response, Request를 지원할 뿐만 아니라. Next.js는 고급 사용 사례를 위한 편리한 도우미를 제공하기 위해 `NextRequest`, `NextResponse`와 같으 확장서비스를 제공한다.
+
+---
+
+## Behavior
+
+### Static Route Handlers
+
+Route Handlers는 기본적으로 `Response` 객체와 함께 `GET` 메서드를 사용할 때 정적으로 평가된다.
+
+```ts:app/items/route.ts
+import { NextResponse } from 'next/server'
+ 
+export async function GET() {
+  const res = await fetch('https://data.mongodb-api.com/...', {
+    headers: {
+      'Content-Type': 'application/json',
+      'API-Key': process.env.DATA_API_KEY,
+    },
+  })
+  const data = await res.json()
+ 
+  return NextResponse.json({ data })
+}
+```
+
+> TypeScript 경고: `Response.json()`이 유효하지만, 네이티브 TypeScript 유형은 현재 오류 표시하며, 대신 입력된 응답에 `NextResponse.json()`을 사용해야한다.
+
+### Dynamic Route Handlers
+
+Route Handlers는 다음과 같은 경우에 동적으로 평가된다.
+
+- GET 메서드와 함께 Request 객체를 사용하는 경우.
+- 다른 HTTP 메서드를 사용하는 경우.
+- cookies 및 headers와 같은 동적 함수를 사용하는 경우.
+- 세그먼트 구성 옵션에서 dynamic mode를 수동으로 지정하는 경우.
+  - `export const dynamic = 'auto'`
+
+### Route Resolution
+
+`route`를 가장 낮은 수준의 라우팅 primitive로 간주할 수 있다.
+
+- client-side navigations page와 layout는 관여하지 않는다.
+- `page.js`와 같은 경로에 `route.js` 파일이 있을 수 없다.
+
+---
+
+### Reference
+
+- [Next js 13 - Router Handlers](https://nextjs.org/docs/app/building-your-application/routing/router-handlers
