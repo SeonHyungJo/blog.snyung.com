@@ -1,0 +1,148 @@
+---
+author: 'snyung'
+date: "2023-06-18"
+update: "2023-06-18"
+title: 모바일 viewport 힘들지 않으세요?
+description: "평소에 사용하던 `vh`, `vw`를 사용하게 되면 원하던 방식으로 사이즈가 잡히지 않는 것을 알 수 있다. 이와 관련하여 많은 이슈가 발생하여 새로운 CSS 단위가 생겼다."
+tags: [CSS]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+모바일 웹 화면을 개발하다 보면 처음 보는 화면사이즈와 스크롤을 했을 때 주소 표시줄(dynamic toolbars)이 사라지면서 화면사이즈가 달라지게 된다. 그러나 평소에 사용하던 `vh`, `vw`를 사용하게 되면 원하던 방식으로 사이즈가 잡히지 않는 것을 알 수 있다. 이와 관련하여 많은 이슈가 발생하여 새로운 CSS 단위가 생겼다.
+
+---
+
+## TOC
+
+## 기존의 viewport와 단위
+
+우리가 viewport를 기준으로 사이즈를 설정하려고 할 때 사용하는 단위로 `vh`, `vw`가 있다.
+
+- `vh`: viewport height 사이즈의 1%
+- `vw`: viewport width 사이즈의 1%
+
+![desktop-cover](/images/posts/dynamic-viewport/desktop-cover.avif)
+
+위를 기준으로 `100vh` `100vw`를 주게되면 화면에 꽉차게 된다.
+
+`vw`, `vh`를 제외한 다른 단위들도 있다.
+
+- `vi` = viewport의 inline축의 1%.
+- `vb` = viewport의 block축의 1%.
+- `vmin` = `vw`, `vh` 중에서 더 작은 것.
+- `vmax` = `vw`, `vh` 중에서 더 큰 것.
+
+---
+
+## 새로운 단위의 필요성
+
+기존 단위들은 데스크톱에서 잘 작동하지만 모바일 디바이스에서는 이상하게 작동할 때가 있다. 모바일 기기에서는 주소 표시줄(dynamic toolbars)의 유무에 따라 viewport 사이즈가 달라지게 된다.
+
+> **dynamic toolbars**:  주소 표시줄과 탭 표시줄과 같은 사용자 인터페이스.
+
+viewport 사이즈는 변경할 수 있지만 `vw`와 `vh` 사이즈는 변경할 수 없다. 따라서 높이가 `100vh`인 element는 viewport에서 넘치게 되는 것이다.
+
+![bleed-out](/images/posts/dynamic-viewport/bleed-out.avif)
+
+스크롤을 하면 주소 표시줄(dynamic toolbars)이 접히는데, 이 상태에서는 높이가 `100vh`인 element가 전체 viewport를 덮게된다.
+
+![cover-mobile-viewport](/images/posts/dynamic-viewport/cover-mobile-viewport.avif)
+
+위와 같은 현상을 해결하기 위해 CSS Working Group에서 viewport의 다양한 상태를 지정했다.
+
+- **Large viewport**: 동적으로 확장, 축소되는 모든 UA 인터페이스가 축소됐다고 가정한 viewport size.
+- **Small Viewport**: 동적으로 확장, 축소되는 모든 UA 인터페이스가 확장됐다고 가정한 viewport size.
+
+![small-large-viewport](/images/posts/dynamic-viewport/small-large-viewport.avif)
+
+이에 새로운 단위도 추가되었다.
+
+- large viewport를 뜻하는 단위는 lv를 앞에 붙인다: `lvw`, `lvh`, `lvi`, `lvb`, `lvmin`, `lvmax`.
+- small viewport를 뜻하는 단위는 lv를 앞에 붙인다: `svw`, `svh`, `svi`, `svb`, `svmin`, `svmax`.
+
+이제 viewport 백분율 단위의 사이즈는 뷰포트 자체의 크기를 조정하지 않는 한 고정되어 안전하다.
+
+![lvh-example](/images/posts/dynamic-viewport/lvh-example.avif)
+
+추가로 large viewport, small viewport 외에도 UA UI를 동적으로 고려한 dynamic viewport도 있다.
+
+- 주소 표시줄(dynamic toolbars)이 확장되면 dynamic viewport는 small viewport의 크기와 같다.
+- 주소 표시줄(dynamic toolbars)이 접히면 dynamic viewport는 large viewport의 크기와 같다.
+
+단위로는 `dv` 접두사가 붙는다: `dvw`, `dvh`, `dvi`, `dvb`, `dvmin`, `dvmax`. 크기는 `lv*`와 `sv*` 사이에 고정되어 있다.
+
+![dynamic-viewport](/images/posts/dynamic-viewport/dynamic-viewport.avif)
+
+> 현재를 기준으로 위의 단위들은 모든 vendor에서 지원하고 있다.
+> [Can I Use - Dynamic Viewport](https://caniuse.com/?search=dynamic%20viewport)
+
+---
+
+## 예제로 살펴보기
+
+예제로 살펴볼 것은 주소 표시줄(dynamic toolbars)이 확장되거나 축소되어도 사용자 기준 하단에 Input이 고정되는 것이다.
+
+```html
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  html body {
+    padding: 0;
+    margin: 0;
+    border: 2px dotted blue;
+    height: 200vh
+  }
+
+  #input {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .container {
+    position: fixed;
+    top: 0;
+    height: 100vh; // 100vh, 100svh, 100dvh로 테스트해보기
+    width: 100%;
+    border: 2px dotted orange;
+  }
+</style>
+
+<body>
+  <section class="container">
+    <input id="input" />
+  </section>
+</body>
+```
+
+`100vh`, `100svh`, `100dvh`로 테스트해보자
+
+### 100vh
+
+기존 viewport 기준이라 아래에 붙어있어 초기에 안보이는 걸 볼 수 있다.
+
+<img src="/images/posts/dynamic-viewport/vh-sample.gif" width="280" />
+
+### 100svh
+
+주소 표시줄(dynamic toolbars)이 확장되었을 때 기준의 사이즈라 스크롤을 하면 둥뜨는 것처럼 보인다.
+
+<img src="/images/posts/dynamic-viewport/svh-sample.gif" width="280"/>
+
+### 100dvh
+
+주소 표시줄(dynamic toolbars)이 확장, 축소되었을때 위치가 맞게 들어가는 것을 볼 수 있다. 그러나 frame에 맞게 변경되는게 아니라 끊겨보일 수 있다.
+
+<img src="/images/posts/dynamic-viewport/dvh-sample.gif" width="280"/>
+
+---
+
+### Reference
+
+- [The large, small, and dynamic viewport units](https://web.dev/viewport-units/)
+
