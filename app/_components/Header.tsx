@@ -62,16 +62,18 @@ function MobileNavigation() {
   const [openMenu, setOpenMenu] = useState<boolean>(false)
 
   return (
-    <section className={'hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full z-10'}>
-      <Image
-        width={20}
-        height={20}
-        src={'/images/common/menu-icon.png'}
-        alt='logo'
-        style={{ cursor: 'pointer', width: 20, height: 20 }}
-        onClick={() => setOpenMenu(true)}
-      />
-
+    <>
+      {!openMenu && <section className={'hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full z-10'}>
+        <Image
+          width={20}
+          height={20}
+          src={'/images/common/menu-icon.png'}
+          alt='logo'
+          style={{ cursor: 'pointer', width: 20, height: 20 }}
+          onClick={() => setOpenMenu(true)}
+        />
+      </section>
+      }
       <BottomSheet open={openMenu} onDismiss={() => setOpenMenu(false)}>
         <section className='flex flex-col items-center justify-start gap-3 p-10'>
           {TOP_MENU.map(({ name, url }) => (
@@ -87,7 +89,7 @@ function MobileNavigation() {
           ))}
         </section>
       </BottomSheet>
-    </section>
+    </>
   )
 }
 
