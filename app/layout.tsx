@@ -44,6 +44,8 @@ export const metadata: Metadata = {
   }
 }
 
+const APP_ID = process.env.NEXT_PUBLIC_DOC_SEARCH_APP_ID as string
+
 export default function RootLayout({
   children,
 }: {
@@ -51,6 +53,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
+      <head>
+        <link rel="preconnect" href={`https://${APP_ID}-dsn.algolia.net`} crossOrigin="anonymous" />
+      </head>
       <body className='flex flex-col max-w-4xl px-4 mx-auto'>
         <Providers>
           <Header />

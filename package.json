@@ -4,12 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap --config sitemap.config.js && next-export-optimize-images",
+    "build": "next build && yarn build:sitemap && yarn build:optimize-images && sitemap",
+    "build:sitemap": "next-sitemap --config sitemap.config.js",
+    "build:optimize-images": "next-export-optimize-images",
+    "sitemap": "curl 'https://google.com/ping?sitemap=https://blog.snyung.com/sitemap.xml'",
     "start": "serve out",
     "lint": "next lint",
     "create:post": "plop post"
   },
   "dependencies": {
+    "@docsearch/react": "3",
     "autoprefixer": "10.4.14",
     "classnames": "^2.3.2",
     "eslint": "8.42.0",

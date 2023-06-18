@@ -8,6 +8,7 @@ import cx from 'classnames';
 import { BottomSheet } from 'react-spring-bottom-sheet'
 
 import { TOP_MENU } from '@/blog.config'
+import BlogSearch from './BlogSearch';
 
 import 'react-spring-bottom-sheet/dist/style.css'
 
@@ -53,6 +54,7 @@ function Navigation() {
           ))}
         </section>
       </section>
+      <SearchAndThemeChanger />
     </section>
   )
 }
@@ -96,11 +98,9 @@ function MobileNavigation() {
 function SearchAndThemeChanger() {
   return (
     <section className='flex flex-row items-center justify-start gap-3'>
-      <span>
-        {'검색창'}
-      </span>
-      <section className={'flex flex-row justify-center items-center'}>
-        <Image
+      <BlogSearch />
+      {/* <section className={'flex flex-row justify-center items-center'}>
+        <Images
           width={24}
           height={24}
           src={'/images/common/theme-light.png'}
@@ -114,7 +114,7 @@ function SearchAndThemeChanger() {
           alt='logo'
           style={{ cursor: 'pointer', width: 24, height: 24 }}
         />
-      </section>
+      </section> */}
     </section>
   )
 }
