@@ -16,7 +16,14 @@ export function getAllPostsPaths(): { slug: string[] }[] {
 export async function getAllPosts(): Promise<Post<Frontmatter>[]> {
   const allPostsPaths = getAllPostsPaths();
   const allPosts = await Promise.all(allPostsPaths.map((path) => getPost(`/${path.slug.join('/')}`)))
+
+  allPosts.sort((a, b) => {
+    const bTitle = b.frontmatter.title
+    const aTitle = a.frontmatter.title
+    return bTitle.localeCompare(aTitle)
+  })
   allPosts.sort((a, b) => dayjs(b.frontmatter.date).toDate().getTime() - dayjs(a.frontmatter.date).toDate().getTime())
+
   return allPosts;
 }
 
