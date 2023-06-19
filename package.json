@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && yarn build:sitemap && yarn build:optimize-images && sitemap",
+    "build": "next build && yarn build:sitemap && yarn build:optimize-images && yarn sitemap",
     "build:sitemap": "next-sitemap --config sitemap.config.js",
     "build:optimize-images": "next-export-optimize-images",
     "sitemap": "curl 'https://google.com/ping?sitemap=https://blog.snyung.com/sitemap.xml'",
