@@ -1,3 +1,4 @@
+import { Metadata, ResolvingMetadata } from 'next';
 
 import { getAllPostsPaths } from '@/app/_api/getAllPosts';
 import { getPost } from '@/app/_api/getPost';
@@ -7,6 +8,22 @@ import Tags from '../../_components/Tags';
 import ContentTitle from '../../_components/ContentTitle';
 import { MdxContent } from '../../_components/MdxContent';
 import Comment from '../../_components/Comment';
+
+type Props = {
+  params: { slug: string[] }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const path = params.slug.map((param) => decodeURIComponent(param))
+  const { frontmatter } = await getPost(`/${path.join('/')}`);
+
+  return {
+    title: frontmatter.title,
+    description: frontmatter.description,
+    keywords: frontmatter.category,
+    creator: frontmatter.author,
+  }
+}
 
 export function generateStaticParams() {
   return getAllPostsPaths()

@@ -9,14 +9,18 @@ import '@/app/globals.css'
 
 
 export const metadata: Metadata = {
-  title: 'snyung blog',
+  title: {
+    template: '%s | snyung blog',
+    default: 'snyung blog',
+    absolute: 'snyung blog'
+  },
   description: '개발과 발견을 소소하게 기록하는 공간',
-  generator: 'Next.js 13',
+  generator: 'Next.js',
   keywords: ['react', 'nextjs', 'snyung'],
   referrer: 'strict-origin-when-cross-origin',
+  applicationName: 'snyung blog',
   themeColor: '',
   colorScheme: 'light dark',
-  viewport: 'width=device-width, initial-scale=1.0',
   publisher: 'Netlify',
   robots: {
     index: true,
@@ -41,7 +45,32 @@ export const metadata: Metadata = {
   authors: {
     url: 'https://github.com/SeonHyungJo',
     name: 'snyung'
-  }
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  openGraph: {
+    url: 'https://blog.snyung.com',
+    siteName: 'snyung blog',
+    images: [
+      {
+        url: '/images/common/Avatar.png?width=800',
+        width: 800,
+        height: 600,
+      },
+      {
+        url: '/images/common/Avatar.png?width=1800',
+        width: 1800,
+        height: 1600,
+        alt: 'snyung blog',
+      },
+    ],
+    locale: 'ko_KR',
+    type: 'website',
+  },
+
 }
 
 const APP_ID = process.env.NEXT_PUBLIC_DOC_SEARCH_APP_ID as string
