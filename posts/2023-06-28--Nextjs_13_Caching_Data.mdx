@@ -1,0 +1,192 @@
+---
+author: 'snyung'
+date: "2023-06-28"
+update: "2023-06-28"
+title: Next.js 13 / 2. Caching Data
+description: "Next.js는 per-request basis(권장) 또는 전체 route segment.에 대한 데이터 캐싱을 기본적으로 지원한다."
+tags: [Next.js 13, Data Fetching]
+category: "posts"
+series: ""
+---
+
+## Intro
+
+Next.js는 per-request basis(권장) 또는 전체 route segment.에 대한 데이터 캐싱을 기본적으로 지원한다.
+
+---
+
+## TOC
+
+## Per-request Caching
+
+### `fetch()`
+
+기본적으로 모든 `fetch()` 요청은 캐시되고 자동으로 중복 제거된다. 즉, 동일한 요청을 두 번 수행하면 두 번째 요청은 첫 번째 요청의 결과를 재사용한다.
+
+```tsx
+async function getComments() {
+  const res = await fetch('https://...') // The result is cached
+  return res.json()
+}
+ 
+// This function is called twice, but the result is only fetched once
+const comments = await getComments() // cache MISS
+ 
+// The second call could be anywhere in your application
+const comments = await getComments() // cache HIT
+```
+
+다음과 같은 경우 요청이 캐시되지 않는다.
+
+- 동적 메서드(`next/headers`, `export const POST`와 같은)나 POST 요청(`Authorization`나 `cookie headers`를 사용하는)은 안된다.
+- `fetchCache`는 기본적으로 캐시를 건너뛰도록 구성된 경우.
+- `revalidate: 0`, `cache: 'no-store'`이 개별 `fetch`에 구성된 경우.
+
+`fetch`를 사용한 요청은 revalidate 옵션을 지정하여 요청의 재검증 빈도를 제어할 수 있다.
+
+```tsx
+export default async function Page() {
+  // revalidate this data every 10 seconds at most
+  const res = await fetch('https://...', { next: { revalidate: 10 } })
+  const data = res.json()
+  // ...
+}
+```
+
+### React `cache()`
+
+React를 사용하면 `cache()` 및 중복 요청을 제거하여 래핑된 함수 호출의 결과를 memoizing할 수 있다. 동일한 인자로 호출된 동일한 함수는 함수를 다시 실행하는 대신 캐시된 값을 재사용한다.
+
+```tsx
+import { cache } from 'react'
+ 
+export const getUser = cache(async (id: string) => {
+  const user = await db.user.findUnique({ id })
+  return user
+})
+```
+
+```tsx
+import { getUser } from '@utils/getUser'
+ 
+export default async function UserLayout({ params: { id } }) {
+  const user = await getUser(id)
+  // ...
+}
+```
+
+```tsx
+import { getUser } from '@utils/getUser'
+ 
+export default async function Page({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  const user = await getUser(id)
+  // ...
+}
+```
+
+위의 예제에서 `getUser()` 함수는 두 번 호출되지만 데이터베이스에 대한 쿼리는 한 번만 수행된다. 이는 `getUser()`가 `cache()`로 래핑되어 두 번째 요청에서 첫 번째 요청의 결과를 재사용할 수 있기 때문이다.
+
+
+- `fetch()`는 요청을 자동으로 캐시하므로 `fetch()`를 사용하는 함수를 `cache()`로 래핑할 필요가 없다.
+- 새로운 모델은 여러 컴포넌트에서 동일한 데이터를 요청하는 경우에도 컴포넌트 간에 데이터를 props로 전달하지 않고 필요한 컴포넌트에서 직접 데이터를 가져오는 것이 좋다.
+- 서버 데이터 불러오기 함수가 클라이언트에서 사용되지 않도록 **`server-only` package**를 사용해야한다.
+
+### POST requests and `cache()`
+
+`POST` 요청은 `fetch`를 사용할 때 자동으로 중복 제거된다. 단, `POST` 경로 핸들러 내부에 있거나 `headers()`/`cookies()`를 읽은 후에 오는 요청은 예외다. 예를 들어, 위의 경우 GraphQL과 `POST` 요청을 사용하는 경우 `cache`를 사용하여 요청을 중복 제거할 수 있다. `cache` arguments는 플랫해야하며 기본 요소만 포함해야 한다.
+
+```ts
+import { cache } from 'react'
+ 
+export const getUser = cache(async (id: string) => {
+  const res = await fetch('...', { method: 'POST', body: '...' })
+  // ...
+})
+```
+
+### Preload pattern with `cache()`
+
+데이터 가져오기를 수행하는 utilities나 Components에서 선택적으로 **`preload()` export** 패턴을 사용할 수 있다.
+
+```ts
+import { getUser } from '@utils/getUser'
+ 
+export const preload = (id: string) => {
+  // void evaluates the given expression and returns undefined
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/void
+  void getUser(id)
+}
+export default async function User({ id }: { id: string }) {
+  const result = await getUser(id)
+  // ...
+}
+```
+
+`preload()`를 호출하면 필요한 데이터를 바로 가져올 수 있다.
+
+
+```tsx
+import User, { preload } from '@components/User'
+ 
+export default async function Page({
+  params: { id },
+}: {
+  params: { id: string }
+}) {
+  preload(id) // starting loading the user data now
+  const condition = await fetchCondition()
+  return condition ? <User id={id} /> : null
+}
+```
+
+- `preload()` 함수는 어떤 이름이라도 사용할 수 있다. API가 아니라 패턴이다.
+- 이 패턴은 완전히 선택 사항이며 사례별로 최적화하는 데 사용할 수 있다. 이 패턴은  parallel data fetching에 대한 추가 최적화다. 이제 promise를 porps로 전달할 필요없으며 대신 `preload()` 패턴을 사용할 수 있다.
+
+### ** Combining `cache`, `preload`, and `server-only`
+
+`cache`, `preload`, `server-only` package를 결합하여 앱 전체에서 사용할 수 있는 데이터 불러오기 유틸리티를 만들 수 있다.
+
+```ts:getUser.ts
+import { cache } from 'react'
+import 'server-only'
+ 
+export const preload = (id: string) => {
+  void getUser(id)
+}
+ 
+export const getUser = cache(async (id: string) => {
+  // ...
+})
+```
+
+이 접근 방식을 사용하면 데이터를 열심히 가져오고, 응답을 캐시하고, 이 데이터 가져오기가 서버에서만 발생하도록 보장할 수 있다.
+
+layout, page, components에서 `getUser.ts` 내보내기를 사용하여 사용자 데이터를 가져오는 시기를 제어할 수 있다.
+
+---
+
+## Segment-level Caching
+
+> 캐싱을 세분화해서 개선하려면 per-request caching을 사용하는 것이 좋다.
+
+Segment-level caching을 사용하면 경로 세그먼트에서 사용된 데이터를 캐싱하고 재검증할 수 있다.
+
+이 메커니즘을 사용하면 경로의 여러 세그먼트가 전체 경로의 캐시 수명을 제어할 수 있다. 경로 계층 구조의 각 `page.tsx`, `layout.tsx`는 경로의 재검증 시간을 설정하는 재검증 값을 내보낼 수 있다.
+
+```ts
+export const revalidate = 60 // revalidate this segment every 60 seconds
+```
+
+- 컴포넌트 내부의 page, layout, fetch 요청이 모두 재검증 빈도를 지정하는 경우 세 가지 중 가장 낮은 값이 사용된다.
+- 모든 가져오기 요청이 캐싱을 선택하도록 하되 개별 가져오기 요청에 따라 재검증 빈도를 낮출 수 있도록 `fetchCache`를 `'only-cache'` 또는 `'force-cache'`로 설정할 수 있다.
+
+---
+
+### Reference
+
+- [Next.js 13 - Caching Data](https://nextjs.org/docs/app/building-your-application/data-fetching/caching)
+
