@@ -1,17 +1,16 @@
-import { serialize } from 'next-mdx-remote/serialize';
+import { serialize } from "next-mdx-remote/serialize";
 
-import remarkGfm from 'remark-gfm';
-import rehypePrismPlus from 'rehype-prism-plus';
-import rehypeSlug from 'rehype-slug';
-import rehypeAutolinkHeadings from 'rehype-autolink-headings';
-import remarkBreaks from 'remark-breaks';
-import remarkTOC from 'remark-toc';
-import rehypeCodeTitles from 'rehype-code-titles';
+import dayjs from "dayjs";
+import readingTime from "reading-time";
+import rehypeAutolinkHeadings from "rehype-autolink-headings";
+import rehypeCodeTitles from "rehype-code-titles";
+import rehypePrismPlus from "rehype-prism-plus";
+import rehypeSlug from "rehype-slug";
+import remarkBreaks from "remark-breaks";
+import remarkGfm from "remark-gfm";
+import remarkTOC from "remark-toc";
 
-import readingTime from 'reading-time';
-import dayjs from 'dayjs';
-
-import { Frontmatter, Post } from '../_type/post';
+import { Frontmatter, Post } from "../_type/post";
 
 
 export async function serializedMDX(raw: string, newPath: string): Promise<Post<Frontmatter>> {
@@ -25,7 +24,7 @@ export async function serializedMDX(raw: string, newPath: string): Promise<Post<
 
           remarkTOC,
           {
-            heading: 'TOC',
+            heading: "TOC",
             tight: true,
             ordered: false,
             maxDepth: 2,
@@ -40,12 +39,12 @@ export async function serializedMDX(raw: string, newPath: string): Promise<Post<
           rehypeAutolinkHeadings,
           {
             properties: {
-              className: ['anchor'],
+              className: ["anchor"],
             },
           },
         ],
       ],
-      format: 'mdx'
+      format: "mdx"
     },
   });
 
@@ -54,7 +53,7 @@ export async function serializedMDX(raw: string, newPath: string): Promise<Post<
   return {
     frontmatter: {
       ...frontmatter,
-      date: dayjs(frontmatter.date).format('YYYY.MM.DD'),
+      date: dayjs(frontmatter.date).format("YYYY.MM.DD"),
       readingMinutes: Math.ceil(readingTime(raw, { wordsPerMinute: 250 }).minutes),
       path: newPath
     },

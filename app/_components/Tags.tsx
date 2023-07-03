@@ -11,5 +11,5 @@ export default function Tags({ tags }: ContentTagsProps) {
         </button>
       ))}
     </>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 import { SOCIAL_LINK } from "@/blog.config";
 
@@ -15,10 +15,10 @@ export default function SocialLinks() {
             height={20}
             src={link.iconPath}
             alt={`social-${link.type}`}
-            style={{ cursor: 'pointer', width: 20, height: 20, }}
+            style={{ cursor: "pointer", width: 20, height: 20, }}
           />
         </Link>
       ))}
     </>
-  )
+  );
 }

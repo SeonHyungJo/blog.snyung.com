@@ -1,6 +1,6 @@
-const path = require('path');
-const fs = require('fs');
-const mkdirp = require('mkdirp');
+const path = require("path");
+const fs = require("fs");
+const mkdirp = require("mkdirp");
 
 /**
  * Input validator - ensure input is not empty.
@@ -31,11 +31,11 @@ const addWithCustomData = function(plop, action, data) {
   return function() {
     try {
       const fileDestPath = makeDestPath(
-        plop.renderString(action.path || '', data),
+        plop.renderString(action.path || "", data),
       );
       const template = fs.readFileSync(
         makeTmplPath(action.templateFile),
-        'utf-8',
+        "utf-8",
       );
       mkdirp.sync(path.dirname(fileDestPath));
       fs.writeFileSync(fileDestPath, plop.renderString(template, data));

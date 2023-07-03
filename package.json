@@ -9,7 +9,8 @@
     "build:optimize-images": "next-export-optimize-images",
     "sitemap": "curl 'https://google.com/ping?sitemap=https://blog.snyung.com/sitemap.xml'",
     "start": "serve out",
-    "lint": "next lint",
+    "lint": "eslint -c ./eslint.config.js .",
+    "lint:fix": "eslint -c ./eslint.config.js . --fix",
     "create:post": "plop post"
   },
   "dependencies": {
@@ -30,12 +31,16 @@
   },
   "packageManager": "yarn@3.6.0",
   "devDependencies": {
+    "@imbios/next-pwa": "^1.1.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/glob": "^8.1.0",
-    "@types/node": "20.2.6",
+    "@types/node": "^20.3.3",
     "@types/react": "18.2.10",
     "@types/react-dom": "18.2.4",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
     "dayjs": "^1.11.8",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "glob": "^10.2.7",
     "next-export-optimize-images": "^2.1.0",
     "next-sitemap": "^4.1.3",

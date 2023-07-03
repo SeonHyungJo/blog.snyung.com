@@ -1,7 +1,7 @@
 export default function SnippetsMainPage({ params }:  { params: { slug: string[] } }) {
   return (
     <section>
-      {'Snippets Detail'}
+      {"Snippets Detail"}
       {params.slug}
     </section>
   );

@@ -1,1 +1,1 @@
-declare module 'rehype-code-title';
+declare module "rehype-code-title";

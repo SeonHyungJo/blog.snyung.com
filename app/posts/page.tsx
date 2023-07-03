@@ -1,8 +1,8 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-import { getAllPosts } from '../_api/getAllPosts';
+import { getAllPosts } from "../_api/getAllPosts";
+import PostListItem from "../_components/PostListItem";
 import TopSection from "../_components/TopSection";
-import PostListItem from '../_components/PostListItem';
 
 
 export default async function PostsMainPage() {
@@ -11,12 +11,12 @@ export default async function PostsMainPage() {
   return (
     <>
       <TopSection
-        title={'Posts'}
-        content={'🧐 개발하면서 정리한 내용을 모아놓은 공간입니다.'}
+        title={"Posts"}
+        content={"🧐 개발하면서 정리한 내용을 모아놓은 공간입니다."}
         footer={
-          <section className={'py-2 px-2'}>
-            <Link href={"/snyung"} className={'text-slate-400'}>
-              {'More about me >'}
+          <section className={"py-2 px-2"}>
+            <Link href={"/snyung"} className={"text-slate-400"}>
+              {"More about me >"}
             </Link>
           </section>
         }
@@ -30,8 +30,8 @@ export default async function PostsMainPage() {
       <section 
         className='flex flex-col items-start justify-start gap-2' 
         style={{
-          transform: 'translateX(-6px)',
-          width: 'calc(100% + 12px)'
+          transform: "translateX(-6px)",
+          width: "calc(100% + 12px)"
         }}
       >
         {

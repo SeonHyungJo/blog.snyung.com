@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import Tags from '../_components/Tags';
-import { Frontmatter, Post } from '../_type/post';
+import Tags from "../_components/Tags";
+import { Frontmatter, Post } from "../_type/post";
 
 
 export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
@@ -20,14 +20,14 @@ export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
           <Tags tags={frontmatter.tags} />
         </section>
 
-        <section className={'w-full flex flex-row sm:justify-end justify-start items-center gap-2'}>
+        <section className={"w-full flex flex-row sm:justify-end justify-start items-center gap-2"}>
           <Image
             width={16}
             height={14}
             src={"/images/common/icon-calendar.png"}
-            alt={'published'}
+            alt={"published"}
           />
-          <span className={'text-sm text-slate-400 mr-2'}>
+          <span className={"text-sm text-slate-400 mr-2"}>
             {frontmatter.date}
           </span>
 
@@ -35,13 +35,13 @@ export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
             width={14}
             height={14}
             src={"/images/common/icon-clock.png"}
-            alt={'reading minutes'}
+            alt={"reading minutes"}
           />
-          <span className={'text-sm text-slate-400 whitespace-nowrap'}>
+          <span className={"text-sm text-slate-400 whitespace-nowrap"}>
             {`${frontmatter.readingMinutes}분`}
           </span>
         </section>
       </section>
     </Link>
-  )
+  );
 }
