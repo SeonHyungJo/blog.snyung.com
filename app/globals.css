@@ -1,6 +1,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Wanted Sans";
+  src: url("https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/static/complete/WantedSans.min.css")
+    format("woff");
+}
+
 @import url(./base.css);
 @import url(./codeBlock.css);
 @import url(./anchor.css);
@@ -25,5 +31,8 @@
 /* Bottom Sheet Style Sheet */
 
 * {
-  font-family: var(--font-noto-sans-kr),  var(--font-archivo);
+  font-family: "Wanted Sans Variable", "Wanted Sans", var(--font-noto-sans-kr),
+    var(--font-archivo)-apple-system, BlinkMacSystemFont, system-ui, "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
 }
