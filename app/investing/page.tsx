@@ -3,7 +3,7 @@ import TopSection from "../_components/TopSection";
 export default async function SnippetsMainPage() {
   return (
     <TopSection
-      title={"(예정) Snippets"}
+      title={"(예정) Investing"}
       content={"⚡️ 유용한 정보를 모아놓은 공간입니다."}
     />
   );

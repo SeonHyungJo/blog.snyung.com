@@ -4,37 +4,30 @@ import Image from "next/image";
 
 import { Frontmatter } from "../_type/post";
 
+type ContentTitleProps = Pick<Frontmatter, "title" | "date" | "readingMinutes">;
 
-type ContentTitleProps = Pick<Frontmatter, "title" | "date" | "readingMinutes">
-
-export default function ContentTitle({ title, date, readingMinutes }: ContentTitleProps) {
+export default function ContentTitle({
+  title,
+  date,
+  readingMinutes,
+}: ContentTitleProps) {
   return (
-    <section className={"w-auto flex flex-col justify-center items-center gap-2 py-2"}>
-      <h1 className='text-center'>{title}</h1>
-      
-      <section className={"w-auto flex flex-row justify-center items-center gap-2 mt-2"}>
-        <Image
-          width={14}
-          height={14}
-          src={"/images/common/icon-calendar.png"}
-          alt={"published"}
-        />
-        <span className={"text-sm text-slate-400 mr-2"}>
-          {date}
-        </span>
+    <section
+      className={"w-auto flex flex-col justify-start items-start gap-2 py-2"}
+    >
+      <h3 className="text-center">{title}</h3>
 
-        <Image
-          width={14}
-          height={14}
-          src={"/images/common/icon-clock.png"}
-          alt={"reading minutes"}
-        />
+      <section
+        className={
+          "w-auto flex flex-row justify-center items-center gap-2 mt-2 px-2"
+        }
+      >
         <span className={"text-sm text-slate-400"}>
-          {`${readingMinutes}분`}
+          {`${date} / ${readingMinutes}min`}
         </span>
       </section>
 
-      <hr className={"border-1 w-full border-slate-300 my-6"}/>
+      <hr className={"border-1 w-full border-slate-300 my-5"} />
     </section>
   );
 }

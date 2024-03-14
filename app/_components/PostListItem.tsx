@@ -6,39 +6,33 @@ import Link from "next/link";
 import Tags from "../_components/Tags";
 import { Frontmatter, Post } from "../_type/post";
 
-
 export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
   return (
-    <Link scroll={true} href={frontmatter.path} className='flex flex-col items-start justify-start w-full gap-2 px-4 py-4 transition-all rounded-lg cursor-pointer sm:px-4 sm:py-6 hover:shadow-sm hover:bg-indigo-100 will-change-contents'>
-      <p className='w-full text-xl font-semibold '>{frontmatter.title}</p>
-      {frontmatter.description &&
-        <p className='w-full px-1 text-sm text-slate-400'>{frontmatter.description}</p>
-      }
+    <Link
+      scroll={true}
+      href={frontmatter.path}
+      className="flex flex-col items-start justify-start w-full gap-3 px-1 py-0 transition-all rounded-lg cursor-pointer sm:px-4 sm:py-4 hover:shadow-sm hover:bg-indigo-100 will-change-contents"
+    >
+      <p className="w-full text-lg font-semibold py-2">{frontmatter.title}</p>
 
-      <section className='flex flex-col items-center justify-end w-full gap-3 sm:flex-row sm:items-start sm:justify-between'>
-        <section className='flex flex-row flex-wrap items-center justify-start w-full gap-2'>
+      {frontmatter.description && (
+        <p className="w-full px-1 text-sm text-slate-400">
+          {frontmatter.description}
+        </p>
+      )}
+
+      <section className="flex flex-col items-center justify-end w-full gap-3 py-2 sm:flex-row sm:items-start sm:justify-between">
+        <section className="flex flex-row flex-wrap items-center justify-start w-full gap-2">
           <Tags tags={frontmatter.tags} />
         </section>
 
-        <section className={"w-full flex flex-row sm:justify-end justify-start items-center gap-2"}>
-          <Image
-            width={16}
-            height={14}
-            src={"/images/common/icon-calendar.png"}
-            alt={"published"}
-          />
-          <span className={"text-sm text-slate-400 mr-2"}>
-            {frontmatter.date}
-          </span>
-
-          <Image
-            width={14}
-            height={14}
-            src={"/images/common/icon-clock.png"}
-            alt={"reading minutes"}
-          />
+        <section
+          className={
+            "w-full flex flex-row sm:justify-end justify-start items-center gap-2"
+          }
+        >
           <span className={"text-sm text-slate-400 whitespace-nowrap"}>
-            {`${frontmatter.readingMinutes}분`}
+            {`${frontmatter.date} / ${frontmatter.readingMinutes}min`}
           </span>
         </section>
       </section>

@@ -4,7 +4,6 @@ import { getAllPosts } from "../_api/getAllPosts";
 import PostListItem from "../_components/PostListItem";
 import TopSection from "../_components/TopSection";
 
-
 export default async function PostsMainPage() {
   const posts = await getAllPosts();
 
@@ -22,23 +21,23 @@ export default async function PostsMainPage() {
         }
       />
 
-      <section className='flex flex-row items-end justify-start w-full gap-2 py-10'>
-        <h2>All Posts</h2>
+      <section className="flex flex-row items-end justify-start w-full gap-2 py-8">
+        <h3>All Posts</h3>
         <h6>{`(${posts.length})`}</h6>
       </section>
 
-      <section 
-        className='flex flex-col items-start justify-start gap-2' 
+      <section
+        className="flex flex-col items-start justify-start gap-2"
         style={{
           transform: "translateX(-6px)",
-          width: "calc(100% + 12px)"
+          width: "calc(100% + 12px)",
         }}
       >
-        {
-          posts.filter(post => !post.frontmatter.draft).map(post => (
+        {posts
+          .filter((post) => !post.frontmatter.draft)
+          .map((post) => (
             <PostListItem key={post.frontmatter.path} {...post} />
-          ))
-        }
+          ))}
       </section>
     </>
   );

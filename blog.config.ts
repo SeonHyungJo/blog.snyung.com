@@ -6,19 +6,23 @@ type MENU = {
 export const TOP_MENU: MENU[] = [
   {
     name: "Posts",
-    url: "/posts"
+    url: "/"
   },
   {
-    name: "Series",
-    url: "/series"
+    name: "Investing",
+    url: "/investing"
   },
   {
-    name: "Snippets",
-    url: "/snippets"
+    name: "Homebar",
+    url: "/homebar"
   },
   {
-    name: "Archives",
-    url: "/archives"
+    name: "Articles",
+    url: "/articles"
+  },
+  {
+    name: "About",
+    url: "/snyung"
   },
 ];
 

@@ -2,19 +2,18 @@ import { Metadata } from "next";
 
 import "@/app/globals.css";
 
-import { archivo,notoSansKR } from "@/app/fonts";
+import { archivo, notoSansKR } from "@/app/fonts";
 
 import Footer from "./_components/Footer";
 import Header from "./_components/Header";
 import { Providers } from "./_components/providers";
-
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://blog.snyung.com"),
   title: {
     template: "%s | snyung blog",
     default: "snyung blog",
-    absolute: "snyung blog"
+    absolute: "snyung blog",
   },
   description: "개발과 발견을 소소하게 기록하는 공간",
   generator: "Next.js",
@@ -27,7 +26,7 @@ export const metadata: Metadata = {
   publisher: "Netlify",
   robots: {
     index: true,
-    follow: true
+    follow: true,
   },
   alternates: {
     canonical: "https://blog.snyung.com",
@@ -35,8 +34,8 @@ export const metadata: Metadata = {
   verification: {
     google: "hDzzkGSdcpcCt94YWZs1eqeK8tpkC5ZT0UjypZ3H3JQ",
     other: {
-      "naver-site-verification": "432c466f5eacaf9c1b02110abbbae0031cd63f8a"
-    }
+      "naver-site-verification": "432c466f5eacaf9c1b02110abbbae0031cd63f8a",
+    },
   },
   appleWebApp: {
     title: "snyung blog",
@@ -47,14 +46,14 @@ export const metadata: Metadata = {
   archives: "https://blog.snyung.com/archives",
   authors: {
     url: "https://github.com/SeonHyungJo",
-    name: "snyung"
+    name: "snyung",
   },
   viewport: {
     width: "device-width",
     initialScale: 1,
     maximumScale: 1,
     viewportFit: "cover",
-    userScalable: false
+    userScalable: false,
   },
   openGraph: {
     title: "snyung blog",
@@ -105,18 +104,28 @@ const APP_ID = process.env.NEXT_PUBLIC_DOC_SEARCH_APP_ID as string;
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
       <head>
-        <link rel="preconnect" href={`https://${APP_ID}-dsn.algolia.net`} crossOrigin="anonymous" />
+        <link
+          rel="preconnect"
+          href={`https://${APP_ID}-dsn.algolia.net`}
+          crossOrigin="anonymous"
+        />
       </head>
-      <body className='flex flex-col max-w-4xl px-4 mx-auto'>
+
+      <body
+        className="flex flex-col w-full mx-auto"
+        style={{ maxWidth: "700px" }}
+      >
         <Providers>
           <Header />
-          {children}
-          <Footer />
+          <div className="w-full px-6 mx-auto">
+            {children}
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>
