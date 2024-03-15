@@ -1,33 +1,9 @@
-import { Metadata } from "next";
-
-import { getAllPostsPaths } from "@/app/_api/getAllInvestingPosts";
 import { getInvstingPost } from "@/app/_api/getInvestingPosts";
+import Comment from "@/app/_components/Comment";
 import ContentTitle from "@/app/_components/ContentTitle";
 import IdCard from "@/app/_components/IdCard";
 import { MdxContent } from "@/app/_components/MdxContent";
 import Tags from "@/app/_components/Tags";
-
-import Comment from "../../_components/Comment";
-
-type Props = {
-  params: { slug: string[] };
-};
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const path = params.slug.map((param) => decodeURIComponent(param));
-  const { frontmatter } = await getInvstingPost(`/${path.join("/")}`);
-
-  return {
-    title: frontmatter.title,
-    description: frontmatter.description,
-    keywords: frontmatter.category,
-    creator: frontmatter.author,
-  };
-}
-
-export function generateStaticParams() {
-  return getAllPostsPaths();
-}
 
 export default async function InvestingMainPage({
   params,

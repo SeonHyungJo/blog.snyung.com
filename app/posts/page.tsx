@@ -26,13 +26,7 @@ export default async function PostsMainPage() {
         <h6>{`(${posts.length})`}</h6>
       </section>
 
-      <section
-        className="flex flex-col items-start justify-start gap-2"
-        style={{
-          transform: "translateX(-6px)",
-          width: "calc(100% + 12px)",
-        }}
-      >
+      <section className="flex flex-col items-start justify-start gap-2">
         {posts
           .filter((post) => !post.frontmatter.draft)
           .map((post) => (

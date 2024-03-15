@@ -3,15 +3,19 @@ const { inputRequired } = require("./templates/utils");
 const POST_TYPES = [
   {
     "type": "일반적인 글",
-    "value": "Post",
+    "value": "posts",
   },
   {
-    "type": "유용한 팁이나 내용",
-    "value": "Snippet",
+    "type": "투자관련 글",
+    "value": "investing",
   },
   {
-    "type": "시리즈물",
-    "value": "Series",
+    "type": "위스키관련 글",
+    "value": "homebar",
+  },
+  {
+    "type": "내가 알리고 싶은 글",
+    "value": "articles",
   },
 ];
 
@@ -44,14 +48,14 @@ module.exports = plop => {
 
       if (data.tags) {
         data.tags = `\ntags: [${data.tags.split(",")}]`;
-      } else{
+      } else {
         data.tags = "\ntags: []";
       }
 
       return [
         {
           type: "add",
-          path: "./{{postType}}s/{{path}}.mdx",
+          path: "./{{postType}}/{{path}}.mdx",
           templateFile: "templates/post-mdx.template",
         },
       ];

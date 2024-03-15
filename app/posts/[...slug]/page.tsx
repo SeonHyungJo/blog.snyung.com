@@ -1,4 +1,4 @@
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 
 import { getAllPostsPaths } from "@/app/_api/getAllPosts";
 import { getPost } from "@/app/_api/getPost";
