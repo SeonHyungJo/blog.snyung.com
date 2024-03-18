@@ -6,8 +6,8 @@ import SocialLinks from "./SocialLinks";
 
 
 const ID_DATA = {
-  name: "Seonhyung Jo",
-  description: "Frontend Engineer (from. 2018)",
+  name: "snyung",
+  description: "Software Engineer(from. 2018)",
   avatarImg: "/images/common/avatar.jpg"
 };
 
