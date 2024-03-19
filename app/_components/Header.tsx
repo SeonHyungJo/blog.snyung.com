@@ -13,7 +13,7 @@ import { TOP_MENU } from "@/blog.config";
 
 export default function Header() {
   return (
-    <header>
+    <header className="pt-safe">
       <Navigation />
       <MobileNavigation />
     </header>

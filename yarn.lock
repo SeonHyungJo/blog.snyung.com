@@ -3162,6 +3162,7 @@ __metadata:
     remark-toc: ^8.0.1
     serve: ^14.2.0
     tailwindcss: 3.3.2
+    tailwindcss-safe-area: ^0.5.1
     typescript: 5.1.3
   languageName: unknown
   linkType: soft
@@ -10201,6 +10202,15 @@ __metadata:
   version: 5.3.3
   resolution: "tabbable@npm:5.3.3"
   checksum: 1aa56e1bb617cc10616c407f4e756f0607f3e2d30f9803664d70b85db037ca27e75918ed1c71443f3dc902e21dc9f991ce4b52d63a538c9b69b3218d3babcd70
+  languageName: node
+  linkType: hard
+
+"tailwindcss-safe-area@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "tailwindcss-safe-area@npm:0.5.1"
+  peerDependencies:
+    tailwindcss: ^2.0.0 || >=3.0.0
+  checksum: 73fab2dd42e524a0012f846adb613a3309b179a9e67d9bf618bcad1ee5aa01122416c5d14996d18e7e4e7e9581e8ffeb39477697c8653e9a2e1b22e4a1c5fdc5
   languageName: node
   linkType: hard
 
