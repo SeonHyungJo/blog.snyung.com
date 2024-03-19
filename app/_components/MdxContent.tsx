@@ -22,7 +22,12 @@ const MdxComponents = {
         {children}
       </table>
     </div>
-  )
+  ),
+  blockquote: ({children, ...props}: any) =>  (
+    <div className="overflow-x-scroll w-auto" {...props}>
+      {children}
+    </div>
+  ),
 };
 
 export function MdxContent({ serialized }: Pick<Post<Frontmatter>, "serialized">) {

@@ -69,16 +69,17 @@ function MobileNavigation() {
       {!openMenu && (
         <section
           className={
-            "hidden max-sm:flex fixed right-1/2 translate-x-2/4 bottom-3 w-10 h-10 flex-row justify-center items-center bg-yellow-300 rounded-full z-10"
+            "hidden max-sm:flex fixed left-8 bottom-8 w-12 h-12 flex-row justify-center items-center bg-orange-50 rounded-xl z-10 shadow-md shadow-slate-500"
           }
+          onClick={() => setOpenMenu(true)}
         >
           <Image
-            width={20}
-            height={20}
+            width={22}
+            height={22}
             src={"/images/common/menu-icon.png"}
             alt="logo"
-            style={{ cursor: "pointer", width: 20, height: 20 }}
-            onClick={() => setOpenMenu(true)}
+            style={{ cursor: "pointer", width: 24, height: 24 }}
+            
           />
         </section>
       )}
