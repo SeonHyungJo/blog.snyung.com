@@ -1,13 +1,13 @@
 {
-  "name": "blog.snyung.com",
+  "name": "snyung.com",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && yarn build:sitemap && yarn build:optimize-images && yarn sitemap",
+    "build": "next build && pnpm build:sitemap && pnpm build:optimize-images && pnpm sitemap",
     "build:sitemap": "next-sitemap",
     "build:optimize-images": "next-export-optimize-images",
-    "sitemap": "curl 'https://google.com/ping?sitemap=https://blog.snyung.com/sitemap.xml'",
+    "sitemap": "curl 'https://google.com/ping?sitemap=https://snyung.com/sitemap.xml'",
     "start": "serve out",
     "lint": "eslint -c ./eslint.config.js .",
     "lint:fix": "eslint -c ./eslint.config.js . --fix",

@@ -23,7 +23,7 @@ export default function Footer() {
             {"© 2023-2024"}
           </span>
           <Link
-            href={"https://github.com/SeonHyungJo/blog.snyung.com"}
+            href={"https://github.com/SeonHyungJo/snyung.com"}
             rel="noopener noreferrer"
             target="_blank"
           >

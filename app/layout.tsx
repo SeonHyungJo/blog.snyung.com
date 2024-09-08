@@ -9,7 +9,7 @@ import Header from "./_components/Header";
 import { Providers } from "./_components/providers";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://blog.snyung.com"),
+  metadataBase: new URL("https://snyung.com"),
   title: {
     template: "%s | snyung blog",
     default: "snyung blog",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://blog.snyung.com",
+    canonical: "https://snyung.com",
   },
   verification: {
     google: "hDzzkGSdcpcCt94YWZs1eqeK8tpkC5ZT0UjypZ3H3JQ",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     startupImage: [],
     statusBarStyle: "black-translucent",
   },
-  archives: "https://blog.snyung.com/archives",
+  archives: "https://snyung.com/archives",
   authors: {
     url: "https://github.com/SeonHyungJo",
     name: "snyung",
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "snyung blog",
-    url: "https://blog.snyung.com",
+    url: "https://snyung.com",
     description: "blog for the Web",
     siteName: "snyung blog",
     images: [

@@ -1,6 +1,6 @@
 // /** @type {import('next-sitemap').IConfig} */
 // module.exports = {
-//   siteUrl: "https://blog.snyung.com",
+//   siteUrl: "https://snyung.com",
 //   output: "export",
 //   generateRobotsTxt: true,
 //   changefreq: "daily",
@@ -15,7 +15,7 @@
 /** @type {import('next-sitemap').IConfig} */
 
 module.exports = {
-  siteUrl: "https://blog.snyung.com",
+  siteUrl: "https://snyung.com",
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: "daily",

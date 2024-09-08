@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 
-
 export default function Comment() {
   const ref = useRef<HTMLDivElement>(null);
   const { resolvedTheme } = useTheme();
@@ -19,7 +18,7 @@ export default function Comment() {
     scriptElem.async = true;
     scriptElem.crossOrigin = "anonymous";
 
-    scriptElem.setAttribute("data-repo", "SeonHyungJo/blog.snyung.com");
+    scriptElem.setAttribute("data-repo", "SeonHyungJo/snyung.com");
     scriptElem.setAttribute("data-repo-id", "R_kgDOJtqDqQ");
     scriptElem.setAttribute("data-category", "General");
     scriptElem.setAttribute("data-category-id", "DIC_kwDOJtqDqc4CXHQL");
@@ -37,8 +36,13 @@ export default function Comment() {
 
   // https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#isetconfigmessage
   useEffect(() => {
-    const iframe = document.querySelector<HTMLIFrameElement>("iframe.giscus-frame");
-    iframe?.contentWindow?.postMessage({ giscus: { setConfig: { theme } } }, "https://giscus.app");
+    const iframe = document.querySelector<HTMLIFrameElement>(
+      "iframe.giscus-frame"
+    );
+    iframe?.contentWindow?.postMessage(
+      { giscus: { setConfig: { theme } } },
+      "https://giscus.app"
+    );
   }, [theme]);
 
   return <section ref={ref} />;
