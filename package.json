@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build && next-image-export-optimizer",
+    "start": "npx serve@latest out",
     "postbuild": "next-sitemap",
     "lint": "eslint -c ./eslint.config.js .",
     "lint:fix": "eslint -c ./eslint.config.js . --fix"

@@ -40,7 +40,6 @@ export default function TabNavigation() {
         <Link
           key={url}
           href={url}
-          prefetch
           className={cx(
             "relative pb-2 px-4 text-lg transition-colors z-10 cursor-pointer",
             isActive(url)
