@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import { Frontmatter } from "../_type/post";
 
 type ContentTitleProps = Pick<Frontmatter, "title" | "date" | "readingMinutes">;

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import "@/app/globals.css";
 
-import { archivo, notoSansKR } from "@/app/fonts";
+import { jetbrainsMono } from "@/app/fonts";
 
 import Footer from "./_components/Footer";
 import Header from "./_components/Header";
@@ -107,7 +107,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={`${notoSansKR.variable} ${archivo.variable}`}>
+    <html lang="ko" className={jetbrainsMono.variable}>
       <head>
         <link
           rel="preconnect"

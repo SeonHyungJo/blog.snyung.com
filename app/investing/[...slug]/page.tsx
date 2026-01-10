@@ -10,11 +10,12 @@ import Tags from "@/app/_components/Tags";
 import Comment from "../../_components/Comment";
 
 type Props = {
-  params: { slug: string[] };
+  params: Promise<{ slug: string[] }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const path = params.slug.map((param) => decodeURIComponent(param));
+  const { slug } = await params;
+  const path = slug.map((param) => decodeURIComponent(param));
   const { frontmatter } = await getInvstingPost(`/${path.join("/")}`);
 
   return {
@@ -29,13 +30,10 @@ export function generateStaticParams() {
   return getAllPostsPaths();
 }
 
-export default async function InvestingMainPage({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
-  const path = params.slug.map((param) => decodeURIComponent(param));
-  const { frontmatter, serialized } = await getInvstingPost(
+export default async function InvestingMainPage({ params }: Props) {
+  const { slug } = await params;
+  const path = slug.map((param) => decodeURIComponent(param));
+  const { frontmatter, content } = await getInvstingPost(
     `/${path.join("/")}`
   );
 
@@ -46,7 +44,7 @@ export default async function InvestingMainPage({
         date={frontmatter.date}
         readingMinutes={frontmatter.readingMinutes}
       />
-      <MdxContent serialized={serialized} />
+      <MdxContent content={content} />
 
       <section className="flex flex-row items-center justify-start w-full gap-2 py-6">
         <Tags tags={frontmatter.tags} />

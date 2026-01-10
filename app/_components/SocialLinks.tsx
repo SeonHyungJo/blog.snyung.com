@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 import Link from "next/link";
 
 import { SOCIAL_LINK } from "@/blog.config";
@@ -10,7 +10,7 @@ export default function SocialLinks() {
     <>
       {SOCIAL_LINK.map((link) => (
         <Link key={link.type} href={link.url} rel="noopener noreferrer" target='_blank'>
-          <Image
+          <ExportedImage
             width={20}
             height={20}
             src={link.iconPath}

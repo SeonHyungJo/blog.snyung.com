@@ -1,3 +1,5 @@
+import { JSX } from "react";
+
 export type Frontmatter = {
   path: string;
   title: string;
@@ -11,6 +13,6 @@ export type Frontmatter = {
 };
 
 export type Post<TFrontmatter> = {
-  serialized: MDXRemoteSerializeResult;
+  content: JSX.Element;
   frontmatter: TFrontmatter;
 };

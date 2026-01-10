@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ExportedImage from "next-image-export-optimizer";
 
 import SocialLinks from "./SocialLinks";
 
@@ -14,7 +14,7 @@ const ID_DATA = {
 export default function IdCard() {
   return (
     <section className='flex flex-row items-center justify-center gap-8 p-12 mx-auto'>
-      <Image
+      <ExportedImage
         className='rounded-full'
         width={84}
         height={84}

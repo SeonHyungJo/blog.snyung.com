@@ -1,26 +1,26 @@
 @tailwind base;
 @layer base {
   h1 {
-    @apply text-3xl lg:text-4xl font-bold;
+    @apply text-[28px] lg:text-[32px] font-bold;
   }
   h2 {
-    @apply text-2xl lg:text-3xl font-bold;
+    @apply text-[24px] lg:text-[28px] font-bold;
   }
   h3 {
-    @apply text-xl lg:text-2xl font-bold;
+    @apply text-[21px] lg:text-[24px] font-bold;
   }
   h4 {
-    @apply text-lg lg:text-xl font-bold;
+    @apply text-[19px] lg:text-[21px] font-bold;
   }
   h5 {
-    @apply text-base lg:text-lg font-bold;
+    @apply text-[17px] lg:text-[19px] font-bold;
   }
   h6 {
-    @apply text-sm lg:text-base font-bold;
+    @apply text-[15px] lg:text-[17px] font-bold;
   }
 
   p,
   span {
-    @apply text-base leading-7;
+    @apply text-[17px] leading-7;
   }
 }

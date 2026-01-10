@@ -1,54 +1,61 @@
-import { serialize } from "next-mdx-remote/serialize";
+import { compileMDX } from "next-mdx-remote/rsc";
 
 import dayjs from "dayjs";
-import readingTime from "reading-time";
+import { readingTime } from "reading-time-estimator";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypeCodeTitles from "rehype-code-titles";
-import rehypePrismPlus from "rehype-prism-plus";
+import rehypePrettyCode from "rehype-pretty-code";
 import rehypeSlug from "rehype-slug";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import remarkTOC from "remark-toc";
 
 import { Frontmatter, Post } from "../_type/post";
+import { MdxComponents } from "../_components/MdxComponents";
 
 
 export async function serializedMDX(raw: string, newPath: string): Promise<Post<Frontmatter>> {
-  const serialized = await serialize(raw, {
-    parseFrontmatter: true,
-    mdxOptions: {
-      remarkPlugins: [
-        remarkGfm,
-        remarkBreaks,
-        [
-
-          remarkTOC,
-          {
-            heading: "TOC",
-            tight: true,
-            ordered: false,
-            maxDepth: 2,
-          }
-        ]
-      ],
-      rehypePlugins: [
-        rehypeCodeTitles,
-        rehypePrismPlus,
-        rehypeSlug,
-        [
-          rehypeAutolinkHeadings,
-          {
-            properties: {
-              className: ["anchor"],
-            },
-          },
+  const { content, frontmatter } = await compileMDX<Frontmatter>({
+    source: raw,
+    options: {
+      parseFrontmatter: true,
+      mdxOptions: {
+        remarkPlugins: [
+          remarkGfm,
+          remarkBreaks,
+          [
+            remarkTOC,
+            {
+              heading: "TOC",
+              tight: true,
+              ordered: false,
+              maxDepth: 2,
+            }
+          ]
         ],
-      ],
-      format: "mdx"
+        rehypePlugins: [
+          [
+            rehypePrettyCode,
+            {
+              theme: "github-dark",
+              keepBackground: true,
+              defaultLang: "plaintext",
+            }
+          ],
+          rehypeSlug,
+          [
+            rehypeAutolinkHeadings,
+            {
+              properties: {
+                className: ["anchor"],
+              },
+            },
+          ],
+        ],
+        format: "mdx"
+      },
     },
+    components: MdxComponents,
   });
-
-  const frontmatter = serialized.frontmatter as Frontmatter;
 
   return {
     frontmatter: {
@@ -57,6 +64,6 @@ export async function serializedMDX(raw: string, newPath: string): Promise<Post<
       readingMinutes: Math.ceil(readingTime(raw, { wordsPerMinute: 250 }).minutes),
       path: newPath
     },
-    serialized,
+    content,
   };
 }

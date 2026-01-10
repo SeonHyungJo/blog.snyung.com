@@ -1,271 +1,155 @@
-code[class*="language-"],
-pre[class*="language-"] {
-	text-align: left;
-	white-space: pre;
-	word-spacing: normal;
-	word-break: normal;
-	word-wrap: normal;
-	color: #eee;
-	background: #2f2f2f;
-	font-family: Roboto Mono, monospace;
-	font-size: 1em;
-	line-height: 1.5em;
+/* rehype-pretty-code styles */
 
-	-moz-tab-size: 4;
-	-o-tab-size: 4;
-	tab-size: 4;
-
-	-webkit-hyphens: none;
-	-moz-hyphens: none;
-	-ms-hyphens: none;
-	hyphens: none;
+/* Code block container */
+[data-rehype-pretty-code-figure] {
+  margin: 1.5rem 0;
 }
 
-code[class*="language-"]::-moz-selection,
-pre[class*="language-"]::-moz-selection,
-code[class*="language-"] ::-moz-selection,
-pre[class*="language-"] ::-moz-selection {
-	background: #363636;
+/* Code block title */
+[data-rehype-pretty-code-title] {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: #f3f4f6;
+  color: #374151;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-code[class*="language-"]::selection,
-pre[class*="language-"]::selection,
-code[class*="language-"] ::selection,
-pre[class*="language-"] ::selection {
-	background: #363636;
+[data-rehype-pretty-code-title] + pre {
+  margin-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
-:not(pre) > code[class*="language-"] {
-	white-space: normal;
-	border-radius: 0.2em;
-	padding: 0.1em;
-}
-
-pre[class*="language-"] {
-	overflow: auto;
-	position: relative;
-	margin: 0.5em 0;
-	padding: 1.25em 1em;
-}
-
-.language-css > code,
-.language-sass > code,
-.language-scss > code {
-	color: #fd9170;
-}
-
-[class*="language-"] .namespace {
-	opacity: 0.7;
-}
-
-.token.atrule {
-	color: #c792ea;
-}
-
-.token.attr-name {
-	color: #ffcb6b;
-}
-
-.token.attr-value {
-	color: #a5e844;
-}
-
-.token.attribute {
-	color: #a5e844;
-}
-
-.token.boolean {
-	color: #c792ea;
-}
-
-.token.builtin {
-	color: #ffcb6b;
-}
-
-.token.cdata {
-	color: #80cbc4;
-}
-
-.token.char {
-	color: #80cbc4;
-}
-
-.token.class {
-	color: #ffcb6b;
-}
-
-.token.class-name {
-	color: #f2ff00;
-}
-
-.token.comment {
-	color: #616161;
-}
-
-.token.constant {
-	color: #c792ea;
-}
-
-.token.deleted {
-	color: #ff6666;
-}
-
-.token.doctype {
-	color: #616161;
-}
-
-.token.entity {
-	color: #ff6666;
-}
-
-.token.function {
-	color: #c792ea;
-}
-
-.token.hexcode {
-	color: #f2ff00;
-}
-
-.token.id {
-	color: #c792ea;
-	font-weight: bold;
-}
-
-.token.important {
-	color: #c792ea;
-	font-weight: bold;
-}
-
-.token.inserted {
-	color: #80cbc4;
-}
-
-.token.keyword {
-	color: #c792ea;
-}
-
-.token.number {
-	color: #fd9170;
-}
-
-.token.operator {
-	color: #89ddff;
-}
-
-.token.prolog {
-	color: #616161;
-}
-
-.token.property {
-	color: #80cbc4;
-}
-
-.token.pseudo-class {
-	color: #a5e844;
-}
-
-.token.pseudo-element {
-	color: #a5e844;
-}
-
-.token.punctuation {
-	color: #89ddff;
-}
-
-.token.regex {
-	color: #f2ff00;
-}
-
-.token.selector {
-	color: #ff6666;
-}
-
-.token.string {
-	color: #a5e844;
-}
-
-.token.symbol {
-	color: #c792ea;
-}
-
-.token.tag {
-	color: #ff6666;
-}
-
-.token.unit {
-	color: #fd9170;
-}
-
-.token.url {
-	color: #ff6666;
-}
-
-.token.variable {
-	color: #ff6666;
+/* Pre and code styling */
+pre,
+code {
+  font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 pre {
   overflow-x: auto;
+  padding: 1rem 0;
+  border-radius: 0.5rem;
+  font-size: 13px;
+  line-height: 1.7;
 }
 
-/**
- * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
- * 1. Make the element just wide enough to fit its content.
- * 2. Always fill the visible space in .code-highlight.
- */
-.code-highlight {
-  float: left; /* 1 */
-  min-width: 100%; /* 2 */
+pre > code {
+  display: grid;
+  counter-reset: line;
 }
 
-.code-line {
-  display: block;
-  padding-left: 16px;
-  padding-right: 16px;
-  margin-left: -16px;
-  margin-right: -16px;
-  border-left: 4px solid rgba(0, 0, 0, 0); /* Set placeholder for highlight accent border color to transparent */
+/* Code line */
+[data-line] {
+  padding: 0 1rem;
+  border-left: 2px solid transparent;
 }
 
-.code-line.inserted {
-  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
-}
-
-.code-line.deleted {
-  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
-}
-
-.highlight-line {
-  margin-left: -16px;
-  margin-right: -16px;
-  background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
-  border-left: 4px solid rgb(59, 130, 246); /* Set highlight accent border color */
-}
-
-.line-number::before {
+/* Line numbers */
+[data-line]::before {
+  counter-increment: line;
+  content: counter(line);
   display: inline-block;
-  width: 1rem;
+  width: 1.5rem;
+  margin-right: 1.5rem;
   text-align: right;
-  margin-right: 16px;
-  margin-left: -8px;
-  color: rgb(156, 163, 175); /* Line number color */
-  content: attr(line);
+  color: #6b7280;
+  font-size: 0.75rem;
 }
 
+/* Hide line numbers for single line or no line numbers */
+code[data-line-numbers-max-digits="1"] > [data-line]::before {
+  width: 1rem;
+}
 
-/* Title */
-.rehype-code-title {
-  margin-bottom: -0.6rem;
-  padding: 0.5em 1em;
-  font-family: Consolas, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
-    'Lucida Sans Typewriter', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono',
-    'Liberation Mono', 'Nimbus Mono L', Monaco, 'Courier New', Courier,
-    monospace;
+code[data-line-numbers-max-digits="2"] > [data-line]::before {
+  width: 1.5rem;
+}
 
-  background-color: black;
-  color: white;
-  z-index: 0;
+code[data-line-numbers-max-digits="3"] > [data-line]::before {
+  width: 2rem;
+}
 
-  border-top-left-radius: 0.3em;
-  border-top-right-radius: 0.3em;
+/* Highlighted line */
+[data-highlighted-line] {
+  background-color: rgba(99, 102, 241, 0.15);
+  border-left-color: rgb(99, 102, 241);
+}
+
+/* Highlighted word/chars */
+[data-highlighted-chars] {
+  background-color: rgba(99, 102, 241, 0.3);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+}
+
+/* Diff styling */
+[data-line][data-line-added] {
+  background-color: rgba(16, 185, 129, 0.15);
+  border-left-color: rgb(16, 185, 129);
+}
+
+[data-line][data-line-removed] {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-left-color: rgb(239, 68, 68);
+}
+
+/* Inline code */
+:not(pre) > code {
+  background-color: #f3f4f6 !important;
+  color: #24292e !important;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 0.875em;
+  display: inline !important;
+  counter-reset: none !important;
+}
+
+:not(pre) > code::before,
+:not(pre) > code *::before,
+:not(pre) > code [data-line]::before {
+  display: none !important;
+  content: none !important;
+  counter-increment: none !important;
+}
+
+:not(pre) > code [data-line] {
+  padding: 0 !important;
+  border-left: none !important;
+}
+
+/* Dark mode inline code */
+.dark :not(pre) > code {
+  background-color: #374151 !important;
+  color: #e5e7eb !important;
+}
+
+/* CodeMirror styles */
+.cm-editor {
+  font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 15px;
+  line-height: 1.7;
+  background-color: #f6f8fa;
+}
+
+.cm-editor .cm-gutters {
+  border-right: none;
+  background-color: #f6f8fa;
+}
+
+.cm-editor .cm-lineNumbers .cm-gutterElement {
+  padding: 0 12px 0 8px;
+  min-width: 32px;
+  color: #6e7781;
+}
+
+.cm-editor .cm-content {
+  padding: 0.5rem 0;
+}
+
+.cm-editor .cm-line {
+  padding: 0 1rem;
 }

@@ -10,11 +10,12 @@ import { MdxContent } from "../../_components/MdxContent";
 import Tags from "../../_components/Tags";
 
 type Props = {
-  params: { slug: string[] }
+  params: Promise<{ slug: string[] }>
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const path = params.slug.map((param) => decodeURIComponent(param));
+  const { slug } = await params;
+  const path = slug.map((param) => decodeURIComponent(param));
   const { frontmatter } = await getPost(`/${path.join("/")}`);
 
   return {
@@ -29,14 +30,15 @@ export function generateStaticParams() {
   return getAllPostsPaths();
 }
 
-export default async function PostsDetailPage({ params }: { params: { slug: string[] } }) {
-  const path = params.slug.map((param) => decodeURIComponent(param));
-  const { frontmatter, serialized } = await getPost(`/${path.join("/")}`);
+export default async function PostsDetailPage({ params }: Props) {
+  const { slug } = await params;
+  const path = slug.map((param) => decodeURIComponent(param));
+  const { frontmatter, content } = await getPost(`/${path.join("/")}`);
 
   return (
     <section className="w-full max-w-2xl mx-auto">
       <ContentTitle title={frontmatter.title} date={frontmatter.date} readingMinutes={frontmatter.readingMinutes} />
-      <MdxContent serialized={serialized} />
+      <MdxContent content={content} />
 
       <section className='flex flex-row items-center justify-start w-full gap-2 py-6'>
         <Tags tags={frontmatter.tags} />
