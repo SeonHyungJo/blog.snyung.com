@@ -1,10 +1,13 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
-@import url(./base.css);
-@import url(./codeBlock.css);
-@import url(./anchor.css);
+@import "./codeBlock.css";
 
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@source "../pages/**/*.{js,ts,jsx,tsx,mdx}";
+@source "../components/**/*.{js,ts,jsx,tsx,mdx}";
+@source "./**/*.{js,ts,jsx,tsx,mdx}";
 
 * {
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
@@ -21,4 +24,83 @@ html {
 
 html::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
+}
+
+/* Base styles (from base.css) */
+@layer base {
+  h1 {
+    @apply text-[28px] lg:text-[32px] font-bold;
+  }
+  h2 {
+    @apply text-[24px] lg:text-[28px] font-bold;
+  }
+  h3 {
+    @apply text-[21px] lg:text-[24px] font-bold;
+  }
+  h4 {
+    @apply text-[19px] lg:text-[21px] font-bold;
+  }
+  h5 {
+    @apply text-[17px] lg:text-[19px] font-bold;
+  }
+  h6 {
+    @apply text-[15px] lg:text-[17px] font-bold;
+  }
+
+  p,
+  span {
+    @apply text-[17px] leading-7;
+  }
+
+  .prose h1 {
+    @apply mt-10 mb-4;
+  }
+
+  .prose h2 {
+    @apply mt-8 mb-4;
+  }
+
+  .prose h3 {
+    @apply mt-6 mb-3;
+  }
+
+  .prose h4 {
+    @apply mt-6 mb-2;
+  }
+
+  .prose h5,
+  .prose h6 {
+    @apply mt-4 mb-2;
+  }
+
+  .prose p {
+    @apply mt-6 mb-2;
+  }
+
+  .prose hr {
+    @apply mt-6 mb-6;
+  }
+}
+
+/* Anchor styles (from anchor.css) */
+.prose .anchor {
+  @apply opacity-0 absolute no-underline transition-all;
+
+  padding-right: 10rem;
+  margin-top: -0.1rem;
+  margin-left: -0.8em;
+
+  cursor: pointer;
+}
+
+.prose .anchor:after {
+  @apply text-gray-300 dark:text-gray-700;
+
+  content: '#';
+  font-size: 0.8em;
+}
+
+.anchor:hover,
+.prose *:hover > .anchor {
+  @apply opacity-100;
 }

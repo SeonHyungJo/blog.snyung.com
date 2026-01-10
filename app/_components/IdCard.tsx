@@ -12,21 +12,21 @@ const ID_DATA = {
 
 export default function IdCard() {
   return (
-    <section className="flex flex-row items-center justify-center gap-8 p-6 mx-auto">
+    <section className="flex flex-row items-center justify-center gap-8 p-10 mx-auto bg-slate-100 rounded-lg w-full max-w-[700px] mt-12 mb-8">
       <ExportedImage
         className="rounded-full"
-        width={84}
-        height={84}
+        width={90}
+        height={90}
         src={ID_DATA.avatarImg}
         alt={"avatar"}
       />
 
       <section className="flex flex-col items-start justify-center">
-        <span className="font-bold">{ID_DATA.name}</span>
+        <span className="text-xl font-bold">{ID_DATA.name}</span>
         <span className="text-sm text-slate-500">{ID_DATA.description}</span>
         <section
           className={
-            "my-3 w-full flex flex-row justify-start items-center gap-2"
+            "mt-2 w-full flex flex-row justify-start items-center gap-1"
           }
         >
           <SocialLinks />

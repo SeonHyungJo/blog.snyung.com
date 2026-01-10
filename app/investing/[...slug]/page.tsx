@@ -44,8 +44,6 @@ export default async function InvestingMainPage({ params }: Props) {
       />
       <MdxContent content={content} />
 
-      <hr className={"border-1 w-full border-slate-300 my-6"} />
-
       <IdCard />
       <Comment />
     </section>

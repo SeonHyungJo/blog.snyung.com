@@ -15,7 +15,7 @@ export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
     <Link
       scroll={true}
       href={frontmatter.path}
-      className="group flex flex-row items-start justify-between w-full gap-6 px-4 py-2 sm:px-0 rounded-lg cursor-pointer"
+      className="group flex flex-row items-start justify-between w-full gap-6 px-4 py-2 rounded-lg cursor-pointer"
     >
       <section className="flex flex-col items-start justify-between flex-1 min-w-0 min-h-[80px] sm:min-h-[120px]">
         <div className="flex flex-col gap-2">
@@ -30,7 +30,7 @@ export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
           )}
         </div>
 
-        <section className="flex flex-row flex-wrap items-center gap-2">
+        <section className="flex flex-row flex-wrap items-center gap-2 my-4">
           <span className="text-sm text-gray-400">
             {dayjs(frontmatter.date).format("YYYY년 M월 D일")}
           </span>
@@ -38,6 +38,7 @@ export default function PostListItem({ frontmatter }: Post<Frontmatter>) {
           <span className="text-sm text-gray-400">
             {frontmatter.readingMinutes}분
           </span>
+
           {frontmatter.tags?.length > 0 && (
             <>
               <span className="text-sm text-gray-300">·</span>

@@ -28,7 +28,7 @@ export default function Footer() {
           ))}
         </nav>
 
-        <p className="text-slate-400">
+        <p className="text-slate-800 text-base">
           {"© 2023-2026 snyung. Powered by Next.js / Netlify"}
         </p>
       </div>

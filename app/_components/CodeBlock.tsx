@@ -75,7 +75,7 @@ export default function CodeBlock({
         basicSetup={{
           lineNumbers: true,
           highlightActiveLineGutter: false,
-          highlightActiveLine: true,
+          highlightActiveLine: false,
           foldGutter: false,
           dropCursor: true,
           allowMultipleSelections: false,
