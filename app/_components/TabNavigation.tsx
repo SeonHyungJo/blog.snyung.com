@@ -42,7 +42,7 @@ export default function TabNavigation() {
           href={url}
           prefetch
           className={cx(
-            "relative pb-2 px-4 text-lg transition-colors z-10",
+            "relative pb-2 px-4 text-lg transition-colors z-10 cursor-pointer",
             isActive(url)
               ? "text-gray-900 font-semibold"
               : "text-gray-400 hover:text-gray-600"
@@ -51,13 +51,13 @@ export default function TabNavigation() {
           {name}
           <span
             className={cx(
-              "absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transition-transform duration-300 origin-left",
+              "absolute bottom-0 left-0 w-full h-0.5 bg-gray-900 transition-transform duration-300 origin-left pointer-events-none",
               isActive(url) ? "scale-x-100" : "scale-x-0"
             )}
           />
         </Link>
       ))}
-      <span className="absolute bottom-2 left-0 w-full h-px bg-gray-200" />
+      <span className="absolute bottom-2 left-0 w-full h-px bg-gray-200 pointer-events-none" />
     </nav>
   );
 }
