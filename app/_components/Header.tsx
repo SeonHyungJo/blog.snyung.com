@@ -7,10 +7,8 @@ export default function Header() {
   return (
     <header className="pt-safe">
       <section className="sticky top-0 flex flex-row justify-center pt-2 w-full sm:pt-6">
-        <section
-          className={"hover:bg-slate-100 transition-all py-2 px-3 rounded-lg"}
-        >
-          <Link prefetch href={"/"}>
+        <section className={"py-2 px-3 rounded-lg"}>
+          <Link href={"/"}>
             <ExportedImage
               width={120}
               height={36}

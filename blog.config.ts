@@ -5,8 +5,12 @@ type MENU = {
 
 export const TOP_MENU: MENU[] = [
   {
-    name: "개발",
+    name: "전체",
     url: "/",
+  },
+  {
+    name: "개발",
+    url: "/posts",
   },
   {
     name: "투자",
