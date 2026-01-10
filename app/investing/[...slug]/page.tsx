@@ -5,7 +5,6 @@ import { getInvstingPost } from "@/app/_api/getInvestingPosts";
 import ContentTitle from "@/app/_components/ContentTitle";
 import IdCard from "@/app/_components/IdCard";
 import { MdxContent } from "@/app/_components/MdxContent";
-import Tags from "@/app/_components/Tags";
 
 import Comment from "../../_components/Comment";
 
@@ -33,22 +32,17 @@ export function generateStaticParams() {
 export default async function InvestingMainPage({ params }: Props) {
   const { slug } = await params;
   const path = slug.map((param) => decodeURIComponent(param));
-  const { frontmatter, content } = await getInvstingPost(
-    `/${path.join("/")}`
-  );
+  const { frontmatter, content } = await getInvstingPost(`/${path.join("/")}`);
 
   return (
-    <section className="w-full max-w-2xl mx-auto">
+    <section className="w-full max-w-[700px] mx-auto px-6">
       <ContentTitle
         title={frontmatter.title}
         date={frontmatter.date}
         readingMinutes={frontmatter.readingMinutes}
+        tags={frontmatter.tags}
       />
       <MdxContent content={content} />
-
-      <section className="flex flex-row items-center justify-start w-full gap-2 py-6">
-        <Tags tags={frontmatter.tags} />
-      </section>
 
       <hr className={"border-1 w-full border-slate-300 my-6"} />
 

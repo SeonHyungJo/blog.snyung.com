@@ -12,3 +12,13 @@
     "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol", sans-serif;
 }
+
+/* Hide scrollbar */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

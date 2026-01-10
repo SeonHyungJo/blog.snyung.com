@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import ExportedImage from "next-image-export-optimizer";
 
 import "@/app/globals.css";
 
@@ -7,6 +8,7 @@ import { jetbrainsMono } from "@/app/fonts";
 import Footer from "./_components/Footer";
 import Header from "./_components/Header";
 import { Providers } from "./_components/providers";
+import TabNavigation from "./_components/TabNavigation";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://snyung.com"),
@@ -21,7 +23,6 @@ export const metadata: Metadata = {
   referrer: "strict-origin-when-cross-origin",
   applicationName: "snyung blog",
   manifest: "/manifest.json",
-  themeColor: "#FFFFFF",
   colorScheme: "light dark",
   publisher: "Netlify",
   robots: {
@@ -116,14 +117,16 @@ export default function RootLayout({
         />
       </head>
 
-      <body
-        className="flex flex-col w-full mx-auto"
-        style={{ maxWidth: "700px" }}
-      >
+      <body className="flex flex-col w-full max-w-[1200px] mx-auto">
         <Providers>
-          <Header />
-          <div className="w-full px-6 mx-auto">
-            {children}
+          <div className="w-full max-w-[1140px] mx-auto px-6 min-[1200px]:px-0">
+            <Header />
+          </div>
+          <div className="w-full max-w-[1140px] mx-auto">
+            <TabNavigation />
+          </div>
+          <div className="w-full max-w-[1140px] mx-auto px-0">{children}</div>
+          <div className="w-full max-w-[1140px] mx-auto px-6 min-[1200px]:px-0">
             <Footer />
           </div>
         </Providers>

@@ -1,18 +1,12 @@
 import { getAboutMe } from "../_api/getAboutMe";
 import { MdxContent } from "../_components/MdxContent";
-import TopSection from "../_components/TopSection";
-
 
 export default async function AboutMePage() {
-  const { frontmatter, content } = await getAboutMe();
+  const { content } = await getAboutMe();
 
   return (
-    <>
-      <TopSection
-        title={frontmatter.title}
-        content={`Last Modified : ${frontmatter?.date ?? ""}`}
-      />
+    <section className="w-full max-w-[700px] mx-auto pt-8 px-6">
       <MdxContent content={content} />
-    </>
+    </section>
   );
 }

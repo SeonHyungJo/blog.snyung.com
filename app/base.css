@@ -23,4 +23,33 @@
   span {
     @apply text-[17px] leading-7;
   }
+
+  .prose h1 {
+    @apply mt-10 mb-4;
+  }
+
+  .prose h2 {
+    @apply mt-8 mb-4;
+  }
+
+  .prose h3 {
+    @apply mt-6 mb-3;
+  }
+
+  .prose h4 {
+    @apply mt-6 mb-2;
+  }
+
+  .prose h5,
+  .prose h6 {
+    @apply mt-4 mb-2;
+  }
+
+  .prose p {
+    @apply mt-6 mb-2;
+  }
+
+  .prose hr {
+    @apply mt-6 mb-6;
+  }
 }

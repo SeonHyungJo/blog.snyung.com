@@ -1,59 +1,54 @@
 type MENU = {
   name: string;
   url: string;
-}
+};
 
 export const TOP_MENU: MENU[] = [
   {
-    name: "Posts",
-    url: "/"
+    name: "개발",
+    url: "/",
   },
   {
-    name: "Investing",
-    url: "/investing"
+    name: "투자",
+    url: "/investing",
   },
   {
-    name: "Homebar",
-    url: "/homebar"
+    name: "아티클",
+    url: "/articles",
   },
   {
-    name: "Articles",
-    url: "/articles"
-  },
-  {
-    name: "About",
-    url: "/snyung"
+    name: "소개",
+    url: "/snyung",
   },
 ];
 
-
-type SOCIAL_TYPE = "mail" | "github" | "facebook" | "book"
+type SOCIAL_TYPE = "mail" | "github" | "facebook" | "book";
 
 type SOCIAL = {
   type: SOCIAL_TYPE;
   url: string;
-  iconPath: string
-}
+  iconPath: string;
+};
 
 export const SOCIAL_LINK: SOCIAL[] = [
   {
     type: "mail",
     url: "mailto:seonhyung.jo@gmail.com",
-    iconPath: "/images/common/social/social-mail.png"
+    iconPath: "/images/common/social/social-mail.png",
   },
   {
     type: "github",
     url: "https://github.com/SeonHyungJo",
-    iconPath: "/images/common/social/social-github.png"
+    iconPath: "/images/common/social/social-github.png",
   },
   {
     type: "facebook",
     url: "https://www.facebook.com/ImDevloper",
-    iconPath: "/images/common/social/social-facebook.png"
+    iconPath: "/images/common/social/social-facebook.png",
   },
   {
     type: "book",
     url: "https://seonhyungjo.github.io/Javascript-Book/",
-    iconPath: "/images/common/social/social-book.png"
+    iconPath: "/images/common/social/social-book.png",
   },
 ];

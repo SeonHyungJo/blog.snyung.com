@@ -2,6 +2,7 @@ import { Children, isValidElement, ReactElement, ReactNode } from "react";
 import ExportedImage from "next-image-export-optimizer";
 
 import CodeBlock from "./CodeBlock";
+import Collapsible from "./Collapsible";
 
 function extractTextFromChildren(children: ReactNode): string {
   if (typeof children === "string") {
@@ -66,4 +67,5 @@ export const MdxComponents = {
 
     return <pre {...props}>{children}</pre>;
   },
+  Collapsible,
 };

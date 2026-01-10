@@ -10,6 +10,7 @@ export type Frontmatter = {
   category: string;
   readingMinutes: number;
   author: string;
+  thumbnail?: string;
 };
 
 export type Post<TFrontmatter> = {

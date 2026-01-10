@@ -1,10 +1,7 @@
-import TopSection from "../_components/TopSection";
-
 export default async function ArticlesMainPage() {
   return (
-    <TopSection
-      title={"(예정) Articles"}
-      content={"📚 시리즈로 작성된 글을 모아놓은 공간입니다."}
-    />
+    <section className="flex flex-col items-center justify-center pt-10">
+      <p className="text-gray-400">시리즈로 작성된 글을 준비 중입니다.</p>
+    </section>
   );
 }
