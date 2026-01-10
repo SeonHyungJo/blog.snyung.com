@@ -13,15 +13,15 @@ import TabNavigation from "./_components/TabNavigation";
 export const metadata: Metadata = {
   metadataBase: new URL("https://snyung.com"),
   title: {
-    template: "%s | snyung blog",
-    default: "snyung blog",
-    absolute: "snyung blog",
+    template: "%s | snyung.",
+    default: "snyung.",
+    absolute: "snyung.",
   },
   description: "개발과 발견을 소소하게 기록하는 공간",
   generator: "Next.js",
   keywords: ["react", "nextjs", "snyung"],
   referrer: "strict-origin-when-cross-origin",
-  applicationName: "snyung blog",
+  applicationName: "snyung.",
   manifest: "/manifest.json",
   publisher: "Netlify",
   robots: {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     },
   },
   appleWebApp: {
-    title: "snyung blog",
+    title: "snyung.",
     capable: true,
     startupImage: [],
     statusBarStyle: "black-translucent",
@@ -49,10 +49,10 @@ export const metadata: Metadata = {
     name: "snyung",
   },
   openGraph: {
-    title: "snyung blog",
+    title: "snyung.",
     url: "https://snyung.com",
     description: "blog for the Web",
-    siteName: "snyung blog",
+    siteName: "snyung.",
     images: [
       {
         url: "/images/common/Avatar.png?width=800",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
         url: "/images/common/Avatar.png?width=1800",
         width: 1800,
         height: 1600,
-        alt: "snyung blog",
+        alt: "snyung.",
       },
     ],
     locale: "ko_KR",
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "snyung blog",
+    title: "snyung.",
     description: "blog for the Web",
     siteId: "1477660020057976837",
     creator: "@snyung_dev",
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
         url: "/images/common/Avatar.png?width=1800",
         width: 1800,
         height: 1600,
-        alt: "snyung blog",
+        alt: "snyung.",
       },
     ],
   },
