@@ -1,8 +1,14 @@
-type ContentTagsProps = {
+"use client";
+
+import { Suspense } from "react";
+
+import TagItem from "./TagItem";
+
+type TagsProps = {
   tags: string[];
 };
 
-export default function Tags({ tags }: ContentTagsProps) {
+function TagsFallback({ tags }: TagsProps) {
   return (
     <>
       {tags.map((tag) => (
@@ -14,5 +20,23 @@ export default function Tags({ tags }: ContentTagsProps) {
         </span>
       ))}
     </>
+  );
+}
+
+function TagsContent({ tags }: TagsProps) {
+  return (
+    <>
+      {tags.map((tag) => (
+        <TagItem key={tag} tag={tag} />
+      ))}
+    </>
+  );
+}
+
+export default function Tags({ tags }: TagsProps) {
+  return (
+    <Suspense fallback={<TagsFallback tags={tags} />}>
+      <TagsContent tags={tags} />
+    </Suspense>
   );
 }

@@ -20,7 +20,7 @@ export default function Collapsible({
     <section className="border border-gray-200 rounded-md mb-4">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-4 text-left font-bold hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between p-4 text-left font-bold hover:bg-gray-50 transition-colors cursor-pointer"
       >
         <span>{title}</span>
         <FiChevronDown

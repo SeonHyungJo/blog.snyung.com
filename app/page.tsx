@@ -2,7 +2,9 @@ import dayjs from "dayjs";
 
 import { getAllInvestingPosts } from "./_api/getAllInvestingPosts";
 import { getAllPosts } from "./_api/getAllPosts";
-import PostListItem from "./_components/PostListItem";
+import PostListWithFilter from "./_components/PostListWithFilter";
+import RecentPosts from "./_components/RecentPosts";
+import TagList from "./_components/TagList";
 
 export default async function Home() {
   const [posts, investingPosts] = await Promise.all([
@@ -16,13 +18,16 @@ export default async function Home() {
       dayjs(a.frontmatter.date).toDate().getTime()
   );
 
+  const filteredPosts = allPosts.filter((post) => !post.frontmatter.draft);
+
   return (
-    <section className="flex flex-col items-start justify-start gap-8 pt-4">
-      {allPosts
-        .filter((post) => !post.frontmatter.draft)
-        .map((post) => (
-          <PostListItem key={post.frontmatter.path} {...post} />
-        ))}
-    </section>
+    <div className="flex flex-row gap-8 pt-4">
+      <PostListWithFilter posts={filteredPosts} />
+
+      <aside className="hidden lg:flex lg:flex-col lg:gap-10 w-[280px] flex-shrink-0 pl-8 border-l border-gray-100">
+        <RecentPosts />
+        <TagList />
+      </aside>
+    </div>
   );
 }

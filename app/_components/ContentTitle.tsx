@@ -18,7 +18,7 @@ export default function ContentTitle({
 }: ContentTitleProps) {
   return (
     <section className={"w-auto flex flex-col justify-start items-start py-8"}>
-      <h1 className="text-center">{title}</h1>
+      <h1 className="text-left">{title}</h1>
 
       <section
         className={"w-auto flex flex-col justify-start items-start py-6"}

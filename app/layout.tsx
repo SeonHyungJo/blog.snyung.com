@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import ExportedImage from "next-image-export-optimizer";
 
 import "@/app/globals.css";
@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   referrer: "strict-origin-when-cross-origin",
   applicationName: "snyung blog",
   manifest: "/manifest.json",
-  colorScheme: "light dark",
   publisher: "Netlify",
   robots: {
     index: true,
@@ -48,13 +47,6 @@ export const metadata: Metadata = {
   authors: {
     url: "https://github.com/SeonHyungJo",
     name: "snyung",
-  },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    viewportFit: "cover",
-    userScalable: false,
   },
   openGraph: {
     title: "snyung blog",
@@ -100,6 +92,15 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
+  userScalable: false,
+  colorScheme: "light dark",
+};
+
 const APP_ID = process.env.NEXT_PUBLIC_DOC_SEARCH_APP_ID as string;
 
 export default function RootLayout({
@@ -119,10 +120,10 @@ export default function RootLayout({
 
       <body className="flex flex-col w-full max-w-[1200px] mx-auto">
         <Providers>
-          <div className="w-full max-w-[1140px] mx-auto px-6 min-[1200px]:px-0">
-            <Header />
-          </div>
-          <div className="w-full max-w-[1140px] mx-auto">
+          <div className="sticky top-0 z-50 bg-white w-full max-w-[1140px] mx-auto">
+            <div className="px-6 min-[1200px]:px-0">
+              <Header />
+            </div>
             <TabNavigation />
           </div>
           <div className="w-full max-w-[1140px] mx-auto px-0">{children}</div>

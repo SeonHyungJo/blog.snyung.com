@@ -6,7 +6,7 @@ import ExportedImage from "next-image-export-optimizer";
 export default function Header() {
   return (
     <header className="pt-safe">
-      <section className="sticky top-0 flex flex-row justify-center py-4 w-full sm:py-6">
+      <section className="sticky top-0 flex flex-row justify-center pt-2 w-full sm:pt-6">
         <section
           className={"hover:bg-slate-100 transition-all py-2 px-3 rounded-lg"}
         >
