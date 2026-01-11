@@ -3,17 +3,17 @@
 import { Suspense } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { Frontmatter, Post } from "../_type/post";
+import { DriveFileWithMeta } from "../../lib/google-drive";
+import DrivePostItem from "./DrivePostItem";
 import Pagination from "./Pagination";
-import PostListItem from "./PostListItem";
 
 const POSTS_PER_PAGE = 20;
 
-type PostListWithFilterProps = {
-  posts: Post<Frontmatter>[];
+type DrivePostListProps = {
+  files: DriveFileWithMeta[];
 };
 
-function PostListContent({ posts }: PostListWithFilterProps) {
+function PostListContent({ files }: DrivePostListProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -21,13 +21,13 @@ function PostListContent({ posts }: PostListWithFilterProps) {
   const selectedTag = searchParams.get("tag");
   const currentPage = Number(searchParams.get("page")) || 1;
 
-  const filteredPosts = selectedTag
-    ? posts.filter((post) => post.frontmatter.tags?.includes(selectedTag))
-    : posts;
+  const filteredFiles = selectedTag
+    ? files.filter((file) => file.frontmatter.tags?.includes(selectedTag))
+    : files;
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const totalPages = Math.ceil(filteredFiles.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const paginatedPosts = filteredPosts.slice(
+  const paginatedFiles = filteredFiles.slice(
     startIndex,
     startIndex + POSTS_PER_PAGE
   );
@@ -49,9 +49,9 @@ function PostListContent({ posts }: PostListWithFilterProps) {
 
   return (
     <>
-      {paginatedPosts.length > 0 ? (
-        paginatedPosts.map((post) => (
-          <PostListItem key={post.frontmatter.path} {...post} />
+      {paginatedFiles.length > 0 ? (
+        paginatedFiles.map((file) => (
+          <DrivePostItem key={file.fileId} {...file} />
         ))
       ) : (
         <section className="w-full flex flex-col items-center justify-center pt-10">
@@ -70,23 +70,23 @@ function PostListContent({ posts }: PostListWithFilterProps) {
   );
 }
 
-function PostListFallback({ posts }: PostListWithFilterProps) {
-  const displayPosts = posts.slice(0, POSTS_PER_PAGE);
+function PostListFallback({ files }: DrivePostListProps) {
+  const displayFiles = files.slice(0, POSTS_PER_PAGE);
 
   return (
     <>
-      {displayPosts.map((post) => (
-        <PostListItem key={post.frontmatter.path} {...post} />
+      {displayFiles.map((file) => (
+        <DrivePostItem key={file.fileId} {...file} />
       ))}
     </>
   );
 }
 
-export default function PostListWithFilter({ posts }: PostListWithFilterProps) {
+export default function DrivePostList({ files }: DrivePostListProps) {
   return (
     <section className="flex flex-col items-start justify-start gap-8 flex-1 min-w-0">
-      <Suspense fallback={<PostListFallback posts={posts} />}>
-        <PostListContent posts={posts} />
+      <Suspense fallback={<PostListFallback files={files} />}>
+        <PostListContent files={files} />
       </Suspense>
     </section>
   );

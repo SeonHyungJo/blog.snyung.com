@@ -1,21 +1,22 @@
-import { getAllInvestingPosts } from "../_api/getAllInvestingPosts";
-import { getAllPosts } from "../_api/getAllPosts";
+import {
+  getFilesByCategory,
+  SUPPORTED_CATEGORIES,
+} from "../../lib/google-drive";
 import TagListClient from "./TagListClient";
 
 export default async function TagList() {
-  const [posts, investingPosts] = await Promise.all([
-    getAllPosts(),
-    getAllInvestingPosts(),
-  ]);
-
-  const allPosts = [...posts, ...investingPosts].filter(
-    (post) => !post.frontmatter.draft
+  // Google Drive에서 모든 카테고리의 파일 가져오기
+  const driveFiles = await Promise.all(
+    SUPPORTED_CATEGORIES.map((category) => getFilesByCategory(category))
   );
+
+  const allFiles = driveFiles.flat();
 
   // 모든 태그 수집 및 카운트
   const tagCount = new Map<string, number>();
-  allPosts.forEach((post) => {
-    post.frontmatter.tags?.forEach((tag) => {
+
+  allFiles.forEach((file) => {
+    file.frontmatter.tags?.forEach((tag) => {
       tagCount.set(tag, (tagCount.get(tag) || 0) + 1);
     });
   });

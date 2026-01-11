@@ -104,3 +104,13 @@ html::-webkit-scrollbar {
 .prose *:hover > .anchor {
   @apply opacity-100;
 }
+
+/* Scroll margin for TOC anchor links */
+.prose h1[id],
+.prose h2[id],
+.prose h3[id],
+.prose h4[id],
+.prose h5[id],
+.prose h6[id] {
+  scroll-margin-top: 5rem;
+}

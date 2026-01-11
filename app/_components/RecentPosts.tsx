@@ -2,21 +2,23 @@ import Link from "next/link";
 
 import dayjs from "dayjs";
 
-import { getAllInvestingPosts } from "../_api/getAllInvestingPosts";
-import { getAllPosts } from "../_api/getAllPosts";
+import {
+  getFilesByCategory,
+  SUPPORTED_CATEGORIES,
+} from "../../lib/google-drive";
 
 export default async function RecentPosts() {
-  const [posts, investingPosts] = await Promise.all([
-    getAllPosts(),
-    getAllInvestingPosts(),
-  ]);
+  // Google Drive에서 모든 카테고리의 파일 가져오기
+  const driveFiles = await Promise.all(
+    SUPPORTED_CATEGORIES.map((category) => getFilesByCategory(category))
+  );
 
-  const recentPosts = [...posts, ...investingPosts]
-    .filter((post) => !post.frontmatter.draft)
+  const recentPosts = driveFiles
+    .flat()
     .sort(
       (a, b) =>
-        dayjs(b.frontmatter.date).toDate().getTime() -
-        dayjs(a.frontmatter.date).toDate().getTime()
+        dayjs(b.frontmatter.date, "YYYY.MM.DD").toDate().getTime() -
+        dayjs(a.frontmatter.date, "YYYY.MM.DD").toDate().getTime()
     )
     .slice(0, 3);
 
@@ -24,14 +26,14 @@ export default async function RecentPosts() {
     <aside className="w-full">
       <h3 className="text-lg font-semibold text-gray-900 mb-4">최신글</h3>
       <ul className="flex flex-col gap-4">
-        {recentPosts.map((post) => (
-          <li key={post.frontmatter.path}>
-            <Link href={post.frontmatter.path} className="group block">
+        {recentPosts.map((file) => (
+          <li key={file.frontmatter.path}>
+            <Link href={file.frontmatter.path} className="group block">
               <p className="text-base font-medium text-gray-800 group-hover:text-blue-600 transition-colors line-clamp-2">
-                {post.frontmatter.title}
+                {file.frontmatter.title}
               </p>
               <span className="text-sm text-gray-400 mt-1">
-                {dayjs(post.frontmatter.date).format("YYYY년 M월 D일")} · {post.frontmatter.readingMinutes}분
+                {dayjs(file.frontmatter.date, "YYYY.MM.DD").format("YYYY년 M월 D일")} · {file.frontmatter.readingMinutes}분
               </span>
             </Link>
           </li>

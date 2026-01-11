@@ -4,12 +4,17 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import cx from "classnames";
 
+import { SUPPORTED_CATEGORIES } from "../../lib/constants";
+
 type TagItemProps = {
   tag: string;
   showActiveState?: boolean;
 };
 
-export default function TagItem({ tag, showActiveState = false }: TagItemProps) {
+export default function TagItem({
+  tag,
+  showActiveState = false,
+}: TagItemProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,15 +39,19 @@ export default function TagItem({ tag, showActiveState = false }: TagItemProps) 
 
     const queryString = params.toString();
 
-    // 리스트 페이지로 이동 (/, /posts, /invest 중 하나)
-    const listPath = pathname.startsWith("/posts/")
-      ? "/posts"
-      : pathname.startsWith("/invest/")
-        ? "/invest"
-        : pathname === "/posts" || pathname === "/invest"
-          ? pathname
-          : "/";
+    // 리스트 페이지로 이동
+    const getListPath = () => {
+      // 카테고리 상세 페이지에서 태그 클릭 시 해당 카테고리 리스트로 이동
+      for (const category of SUPPORTED_CATEGORIES) {
+        if (pathname.startsWith(`/${category}/`) || pathname === `/${category}`) {
+          return `/${category}`;
+        }
+      }
+      // 기본값: 홈
+      return "/";
+    };
 
+    const listPath = getListPath();
     router.push(queryString ? `${listPath}?${queryString}` : listPath);
   };
 
