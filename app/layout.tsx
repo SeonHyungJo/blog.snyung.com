@@ -30,6 +30,14 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://snyung.com",
+    types: {
+      "application/rss+xml": [
+        { url: "/rss.xml", title: "snyung. RSS Feed" },
+        { url: "/tech/rss.xml", title: "snyung. Tech RSS Feed" },
+        { url: "/invest/rss.xml", title: "snyung. Invest RSS Feed" },
+        { url: "/articles/rss.xml", title: "snyung. Articles RSS Feed" },
+      ],
+    },
   },
   verification: {
     google: "hDzzkGSdcpcCt94YWZs1eqeK8tpkC5ZT0UjypZ3H3JQ",
