@@ -8,12 +8,12 @@ import cx from "classnames";
 const TABS = [
   { name: "전체", url: "/" },
   { name: "개발", url: "/posts" },
-  { name: "투자", url: "/investing" },
+  { name: "투자", url: "/invest" },
   { name: "아티클", url: "/articles" },
   { name: "소개", url: "/snyung" },
 ];
 
-const DETAIL_PATHS = ["/posts/", "/investing/"];
+const DETAIL_PATHS = ["/posts/", "/invest/"];
 
 export default function TabNavigation() {
   const pathname = usePathname();

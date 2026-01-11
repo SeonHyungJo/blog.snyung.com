@@ -14,7 +14,7 @@ export const TOP_MENU: MENU[] = [
   },
   {
     name: "투자",
-    url: "/investing",
+    url: "/invest",
   },
   {
     name: "아티클",

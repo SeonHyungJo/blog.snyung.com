@@ -34,12 +34,12 @@ export default function TagItem({ tag, showActiveState = false }: TagItemProps) 
 
     const queryString = params.toString();
 
-    // 리스트 페이지로 이동 (/, /posts, /investing 중 하나)
+    // 리스트 페이지로 이동 (/, /posts, /invest 중 하나)
     const listPath = pathname.startsWith("/posts/")
       ? "/posts"
-      : pathname.startsWith("/investing/")
-        ? "/investing"
-        : pathname === "/posts" || pathname === "/investing"
+      : pathname.startsWith("/invest/")
+        ? "/invest"
+        : pathname === "/posts" || pathname === "/invest"
           ? pathname
           : "/";
 

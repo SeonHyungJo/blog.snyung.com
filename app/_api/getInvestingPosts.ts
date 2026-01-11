@@ -7,7 +7,7 @@ import { Frontmatter, Post } from "../_type/post";
 import { serializedMDX } from "./serialize";
 
 
-const BASE_PATH = "/investing";
+const BASE_PATH = "/invest";
 const POSTS_PATH = path.join(process.cwd(), BASE_PATH);
 
 export async function getInvstingPost(filePath: string): Promise<Post<Frontmatter>> {
