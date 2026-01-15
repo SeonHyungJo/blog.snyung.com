@@ -17,8 +17,8 @@ export default async function RecentPosts() {
     .flat()
     .sort(
       (a, b) =>
-        dayjs(b.frontmatter.date, "YYYY.MM.DD").toDate().getTime() -
-        dayjs(a.frontmatter.date, "YYYY.MM.DD").toDate().getTime()
+        dayjs(b.frontmatter.date).toDate().getTime() -
+        dayjs(a.frontmatter.date).toDate().getTime()
     )
     .slice(0, 3);
 
@@ -33,7 +33,7 @@ export default async function RecentPosts() {
                 {file.frontmatter.title}
               </p>
               <span className="text-sm text-gray-400 mt-1">
-                {dayjs(file.frontmatter.date, "YYYY.MM.DD").format("YYYY년 M월 D일")} · {file.frontmatter.readingMinutes}분
+                {dayjs(file.frontmatter.date).format("YYYY년 M월 D일")} · {file.frontmatter.readingMinutes}분
               </span>
             </Link>
           </li>

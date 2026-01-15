@@ -14,7 +14,7 @@ const MAX_ITEMS = 100;
 function generateRssItem(file: DriveFileWithMeta): string {
   const { frontmatter } = file;
   const link = `${SITE_URL}${frontmatter.path}`;
-  const pubDate = dayjs(frontmatter.date, "YYYY.MM.DD").toDate().toUTCString();
+  const pubDate = dayjs(frontmatter.date).toDate().toUTCString();
 
   return `    <item>
       <title><![CDATA[${frontmatter.title}]]></title>
@@ -41,9 +41,7 @@ export function generateRssFeed(
 
   const items = files
     .sort((a, b) =>
-      dayjs(b.frontmatter.date, "YYYY.MM.DD").diff(
-        dayjs(a.frontmatter.date, "YYYY.MM.DD")
-      )
+      dayjs(b.frontmatter.date).diff(dayjs(a.frontmatter.date))
     )
     .slice(0, MAX_ITEMS)
     .map(generateRssItem)

@@ -21,7 +21,7 @@ export default function ContentTitle({
       <h1 className="text-left">{title}</h1>
 
       <section
-        className={"w-auto flex flex-col justify-start items-start py-6"}
+        className={"w-auto flex flex-col justify-start items-start py-4"}
       >
         {tags?.length > 0 && (
           <section className="flex flex-row flex-wrap items-center gap-2 mt-2">
@@ -30,7 +30,7 @@ export default function ContentTitle({
         )}
         <section
           className={
-            "w-auto flex flex-row justify-center items-center gap-2 mt-2 px-2"
+            "w-auto flex flex-row justify-center items-center gap-2 mt-2 px-0"
           }
         >
           <span className={"text-sm text-slate-400"}>

@@ -32,7 +32,7 @@ export default function DrivePostItem({ frontmatter }: DriveFileWithMeta) {
 
         <section className="flex flex-row flex-wrap items-center gap-2 my-4">
           <span className="text-sm text-gray-400">
-            {dayjs(frontmatter.date, "YYYY.MM.DD").format("YYYY년 M월 D일")}
+            {dayjs(frontmatter.date).format("YYYY년 M월 D일")}
           </span>
           <span className="text-sm text-gray-300">·</span>
           <span className="text-sm text-gray-400">

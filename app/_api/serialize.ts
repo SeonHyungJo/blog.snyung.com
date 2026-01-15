@@ -97,7 +97,7 @@ export async function serializedMDX(
   return {
     frontmatter: {
       ...frontmatter,
-      date: dayjs(frontmatter.date).format("YYYY.MM.DD"),
+      date: dayjs(frontmatter.date).format("YYYY-MM-DD"),
       readingMinutes: Math.ceil(
         readingTime(raw, { wordsPerMinute: 250 }).minutes
       ),

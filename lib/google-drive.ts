@@ -66,7 +66,7 @@ export function parseFrontmatter(
     path: `/${category}/${fileId}`,
     title: data.title || "Untitled",
     description: data.description,
-    date: dayjs(data.date).format("YYYY.MM.DD"),
+    date: dayjs(data.date).format("YYYY-MM-DD"),
     draft: data.draft ?? false,
     tags: data.tags || [],
     category: data.category || category,
@@ -161,8 +161,8 @@ export async function getFilesByCategory(
     .filter((file) => !file.frontmatter.draft)
     .sort((a, b) => {
       // 날짜 내림차순 정렬
-      const dateA = dayjs(a.frontmatter.date, "YYYY.MM.DD");
-      const dateB = dayjs(b.frontmatter.date, "YYYY.MM.DD");
+      const dateA = dayjs(a.frontmatter.date);
+      const dateB = dayjs(b.frontmatter.date);
       return dateB.diff(dateA);
     });
 }

@@ -17,8 +17,8 @@ export default async function Home() {
   // 모든 포스트를 날짜순으로 정렬
   const allPosts = driveFiles.flat().sort(
     (a, b) =>
-      dayjs(b.frontmatter.date, "YYYY.MM.DD").toDate().getTime() -
-      dayjs(a.frontmatter.date, "YYYY.MM.DD").toDate().getTime()
+      dayjs(b.frontmatter.date).toDate().getTime() -
+      dayjs(a.frontmatter.date).toDate().getTime()
   );
 
   return (
