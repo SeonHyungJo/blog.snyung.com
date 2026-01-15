@@ -4,7 +4,11 @@ import matter from "gray-matter";
 import { readingTime } from "reading-time-estimator";
 
 import { Frontmatter } from "../app/_type/post";
-import { FOLDER_MAP, SUPPORTED_CATEGORIES } from "./constants";
+import {
+  ABOUTME_FOLDER_ID,
+  FOLDER_MAP,
+  SUPPORTED_CATEGORIES,
+} from "./constants";
 
 export { SUPPORTED_CATEGORIES };
 
@@ -181,6 +185,47 @@ export async function getFileWithMeta(
     return { raw, frontmatter };
   } catch (error) {
     console.error(`Error fetching file ${fileId}:`, error);
+    return null;
+  }
+}
+
+/**
+ * About Me 폴더에서 첫 번째 MDX 파일의 콘텐츠를 가져옵니다.
+ */
+export async function getAboutMeContent(): Promise<string | null> {
+  if (!ABOUTME_FOLDER_ID) {
+    console.warn("About Me folder ID not configured");
+    return null;
+  }
+
+  const drive = getDriveClient();
+
+  if (!drive) {
+    console.warn("Google Drive API not configured");
+    return null;
+  }
+
+  try {
+    // 폴더 내 첫 번째 md/mdx 파일 조회
+    const response = await drive.files.list({
+      q: `'${ABOUTME_FOLDER_ID}' in parents and trashed=false and (name contains '.md' or name contains '.mdx')`,
+      fields: "files(id, name)",
+      pageSize: 1,
+    });
+
+    const files = response.data.files || [];
+
+    if (files.length === 0) {
+      console.warn("No MDX file found in About Me folder");
+      return null;
+    }
+
+    const fileId = files[0].id!;
+    const content = await getFileContent(fileId);
+
+    return content;
+  } catch (error) {
+    console.error("Error fetching About Me content:", error);
     return null;
   }
 }

@@ -5,5 +5,8 @@ export const FOLDER_MAP: Record<string, string> = {
   articles: process.env.GOOGLE_DRIVE_ARTICLE_FOLDER_ID || "",
 };
 
+// About Me Google Drive 폴더 ID
+export const ABOUTME_FOLDER_ID = process.env.GOOGLE_DRIVE_ABOUTME_FOLDER_ID || "";
+
 // 지원하는 카테고리 목록
 export const SUPPORTED_CATEGORIES = Object.keys(FOLDER_MAP);
