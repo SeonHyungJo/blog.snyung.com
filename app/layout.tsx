@@ -128,7 +128,7 @@ export default function RootLayout({
 
       <body className="flex flex-col w-full max-w-[1200px] mx-auto">
         <Providers>
-          <div className="sticky top-0 z-50 bg-white w-full max-w-[1140px] mx-auto">
+          <div className="sticky top-0 z-50 bg-white w-full max-w-[1140px] mx-auto pt-safe">
             <div className="px-6 min-[1200px]:px-0">
               <Header />
             </div>

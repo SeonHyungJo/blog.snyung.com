@@ -5,7 +5,7 @@ import ExportedImage from "next-image-export-optimizer";
 
 export default function Header() {
   return (
-    <header className="pt-safe">
+    <header>
       <section className="sticky top-0 flex flex-row justify-center pt-2 w-full sm:pt-6">
         <Link href={"/"} style={{ cursor: "pointer", width: 160, height: 48 }}>
           <ExportedImage

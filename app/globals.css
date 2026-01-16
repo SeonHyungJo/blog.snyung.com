@@ -114,3 +114,20 @@ html::-webkit-scrollbar {
 .prose h6[id] {
   scroll-margin-top: 5rem;
 }
+
+/* Safe area insets for iOS standalone mode */
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pl-safe {
+  padding-left: env(safe-area-inset-left);
+}
+
+.pr-safe {
+  padding-right: env(safe-area-inset-right);
+}
