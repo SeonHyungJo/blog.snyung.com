@@ -5,14 +5,19 @@ import ExportedImage from "next-image-export-optimizer";
 
 const SIDE_PROJECTS = [
   {
-    name: "연말정산 계산기",
+    name: "연말정산",
     href: "https://tax.snyung.com",
     color: "emerald",
   },
   {
-    name: "콘텐츠 관리 시스템",
+    name: "CMS",
     href: "https://cms.snyung.com",
     color: "blue",
+  },
+  {
+    name: "트레이딩",
+    href: "https://trade.snyung.com",
+    color: "orange",
   },
 ];
 
@@ -47,7 +52,7 @@ export default function Header() {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`group flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-500 border border-slate-200 rounded-full transition-all duration-200 ${colorMap[color]?.split(" ").slice(1).join(" ")}`}
+            className={`group flex items-center gap-1.5 px-1 py-1 text-xs font-medium text-slate-500 border border-slate-200 rounded-full transition-all duration-200 ${colorMap[color]?.split(" ").slice(1).join(" ")}`}
           >
             <span
               className={`w-1.5 h-1.5 rounded-full ${colorMap[color]?.split(" ")[0]} group-hover:animate-pulse`}
