@@ -18,7 +18,7 @@ export default function Comment() {
     scriptElem.async = true;
     scriptElem.crossOrigin = "anonymous";
 
-    scriptElem.setAttribute("data-repo", "SeonHyungJo/snyung.com");
+    scriptElem.setAttribute("data-repo", "SeonHyungJo/blog.snyung.com");
     scriptElem.setAttribute("data-repo-id", "R_kgDOJtqDqQ");
     scriptElem.setAttribute("data-category", "General");
     scriptElem.setAttribute("data-category-id", "DIC_kwDOJtqDqc4CXHQL");
