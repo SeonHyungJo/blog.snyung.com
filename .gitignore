@@ -50,9 +50,3 @@ next-env.d.ts
 # google service account
 /service-account.json
 
-# build-generated (sitemap, rss, llms)
-/public/sitemap*.xml
-/public/robots.txt
-/public/rss.xml
-/public/*/rss.xml
-/public/llms.txt
