@@ -109,7 +109,7 @@ export default async function CategoryDetailPage({ params }: Props) {
         title={frontmatter.title}
         date={frontmatter.date}
         readingMinutes={frontmatter.readingMinutes}
-        tags={frontmatter.tags}
+        tags={file.frontmatter.tags}
       />
       <MdxContent content={content} />
 

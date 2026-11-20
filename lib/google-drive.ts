@@ -72,7 +72,13 @@ export function parseFrontmatter(
     description: data.description,
     date: dayjs(data.date).format("YYYY-MM-DD"),
     draft: data.draft ?? false,
-    tags: data.tags || [],
+    // tags가 "a, b" 같은 문자열로 들어와도 배열로 정규화
+    tags: (Array.isArray(data.tags)
+      ? data.tags
+      : String(data.tags ?? "").split(",")
+    )
+      .map((tag: unknown) => String(tag).trim())
+      .filter(Boolean),
     category: data.category || category,
     readingMinutes: Math.ceil(
       readingTime(raw, { wordsPerMinute: 250 }).minutes
