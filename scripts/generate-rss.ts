@@ -8,7 +8,8 @@ import {
   SUPPORTED_CATEGORIES,
 } from "../lib/rss";
 
-const OUT_DIR = path.join(process.cwd(), "out");
+// Vercel은 out/이 아니라 빌드 후 public/을 서빙한다
+const OUT_DIR = path.join(process.cwd(), "public");
 
 async function generateAllRssFeeds() {
   console.log("Generating RSS feeds...");
