@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import matter from "gray-matter";
+
 import {
   getFilesByCategory,
   getFileWithMeta,
@@ -44,6 +46,18 @@ export async function generateStaticParams() {
   return allParams;
 }
 
+// frontmatter description이 없으면 본문 앞부분을 메타 설명으로 사용
+function describe(raw: string, description?: string): string {
+  if (description) return description;
+  const text = matter(raw)
+    .content.replace(/```[\s\S]*?```/g, " ")
+    .replace(/!?\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/<[^>]+>|[#>*_`|~-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return text.length > 155 ? `${text.slice(0, 155)}…` : text;
+}
+
 type Props = {
   params: Promise<{ category: string; id: string }>;
 };
@@ -61,11 +75,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Not Found" };
   }
 
+  const { title, date, tags, author, thumbnail } = file.frontmatter;
+  const description = describe(file.raw, file.frontmatter.description);
+  const url = `/${category}/${id}`;
+
   return {
-    title: file.frontmatter.title,
-    description: file.frontmatter.description,
-    keywords: file.frontmatter.category,
-    creator: file.frontmatter.author,
+    title,
+    description,
+    keywords: tags.length ? tags : file.frontmatter.category,
+    creator: author,
+    alternates: { canonical: url },
+    openGraph: {
+      type: "article",
+      url,
+      title,
+      description,
+      publishedTime: date,
+      authors: [author],
+      tags,
+      images: [thumbnail || "/images/common/Avatar.png?width=1800"],
+    },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
@@ -103,8 +133,30 @@ export default async function CategoryDetailPage({ params }: Props) {
     `/${category}/${id}`
   );
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: frontmatter.title,
+    description: describe(file.raw, file.frontmatter.description),
+    datePublished: file.frontmatter.date,
+    author: {
+      "@type": "Person",
+      name: file.frontmatter.author,
+      url: "https://github.com/SeonHyungJo",
+    },
+    mainEntityOfPage: `https://snyung.com/${category}/${id}`,
+    keywords: file.frontmatter.tags.join(", "),
+    inLanguage: "ko-KR",
+  };
+
   return (
     <section className="w-full max-w-[700px] mx-auto px-6">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <ContentTitle
         title={frontmatter.title}
         date={frontmatter.date}

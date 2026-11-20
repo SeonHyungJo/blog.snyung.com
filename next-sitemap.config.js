@@ -16,6 +16,7 @@
 
 module.exports = {
   siteUrl: "https://snyung.com",
+  outDir: "out",
   generateRobotsTxt: true,
   sitemapSize: 7000,
   changefreq: "daily",

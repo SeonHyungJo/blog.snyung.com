@@ -35,6 +35,7 @@ export async function generateMetadata({
 
   return {
     title: category.charAt(0).toUpperCase() + category.slice(1),
+    alternates: { canonical: `/${category}` },
   };
 }
 

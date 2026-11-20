@@ -42,6 +42,27 @@ async function generateAllRssFeeds() {
     );
   }
 
+  // 3. llms.txt (생성형 AI용 사이트 안내)
+  const llms = [
+    "# snyung.",
+    "",
+    "> 개발(tech), 투자(invest), 아티클(articles)을 기록하는 snyung의 개인 블로그.",
+    "",
+    ...SUPPORTED_CATEGORIES.flatMap((category) => [
+      `## ${category}`,
+      "",
+      ...allPosts
+        .filter((post) => post.frontmatter.path.startsWith(`/${category}/`))
+        .map(
+          ({ frontmatter: f }) =>
+            `- [${f.title}](https://snyung.com${f.path})${f.description ? `: ${f.description}` : ""}`
+        ),
+      "",
+    ]),
+  ].join("\n");
+  fs.writeFileSync(path.join(OUT_DIR, "llms.txt"), llms, "utf-8");
+  console.log("  ✓ Generated: /llms.txt");
+
   console.log("RSS generation complete!");
 }
 

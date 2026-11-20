@@ -29,7 +29,6 @@ export const metadata: Metadata = {
     follow: true,
   },
   alternates: {
-    canonical: "https://snyung.com",
     types: {
       "application/rss+xml": [
         { url: "/rss.xml", title: "snyung. RSS Feed" },
