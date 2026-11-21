@@ -41,7 +41,10 @@ export const metadata: Metadata = {
   verification: {
     google: "hDzzkGSdcpcCt94YWZs1eqeK8tpkC5ZT0UjypZ3H3JQ",
     other: {
-      "naver-site-verification": "432c466f5eacaf9c1b02110abbbae0031cd63f8a",
+      "naver-site-verification": [
+        "432c466f5eacaf9c1b02110abbbae0031cd63f8a",
+        "1ee49384d6c1ba715127b62dd3abcdb22b6b5f6d",
+      ],
     },
   },
   appleWebApp: {
